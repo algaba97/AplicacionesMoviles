@@ -18,8 +18,12 @@ public class ReadMap : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        
 	}
+    void instantiateMap(){
+
+
+    }
 
     void ReadFile(int number)
     {
