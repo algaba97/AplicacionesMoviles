@@ -28,8 +28,7 @@ public class ReadMap : MonoBehaviour {
 
 
         float tilesize =  (float)2 * width / (float)tam;
-        Debug.Log(tilesize);
-       var auxi= (float)Screen.width / (float)Screen.height;
+      
 
 
         for (int i= 0; i< tam; i++){

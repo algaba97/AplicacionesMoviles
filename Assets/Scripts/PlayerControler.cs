@@ -21,21 +21,7 @@ public class PlayerControler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        var width = Camera.main.orthographicSize * Screen.width / Screen.height; //TODO a esto habria que añadirle los margenes en caso de que no fuera vertical
-        var height = Camera.main.orthographicSize ;
-
-        //rb.velocity = new Vector2(0.0f,0.0f);
-
-        if (transform.position.x> width || transform.position.x <-width)
-        {
-            Debug.Log("entro");
-            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
-        }
-        if(transform.position.y > height)
-        {
-            rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);
-
-        }
+        
         Vector3 fin;
         if (Input.GetMouseButtonUp(0))
         {
@@ -52,6 +38,25 @@ public class PlayerControler : MonoBehaviour {
         //añadir la fuerza
 
         //las pelotas estan en una layer de fisica para que no se colisionen entre sí
+
+    }
+    void LateUpdate()
+    {
+        var width = Camera.main.orthographicSize * Screen.width / Screen.height; //TODO a esto habria que añadirle los margenes en caso de que no fuera vertical
+        var height = Camera.main.orthographicSize;
+
+        //rb.velocity = new Vector2(0.0f,0.0f);
+
+        if (transform.position.x > width - 0.2f || transform.position.x < -width + 0.2f) //El 0.2 esta un poco a ojo punteito 
+        {
+            Debug.Log(transform.position.x);
+            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
+        }
+        if (transform.position.y > height - 0.2f)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);
+
+        }
 
     }
     private void OnCollisionEnter2D(Collision2D collision)
