@@ -13,7 +13,7 @@ public class PlayerControler : MonoBehaviour {
     [Header("Bola")]
 
     public float Fuerza = 5f;
-    public gameObject balls;
+    public GameObject balls;
 	void Start () {
         ini =  gameObject.transform.position;
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -21,6 +21,21 @@ public class PlayerControler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        var width = Camera.main.orthographicSize * Screen.width / Screen.height; //TODO a esto habria que añadirle los margenes en caso de que no fuera vertical
+        var height = Camera.main.orthographicSize *  Screen.height / Screen.width;
+
+        //rb.velocity = new Vector2(0.0f,0.0f);
+
+        if (transform.position.x> width || transform.position.x <-width)
+        {
+            Debug.Log("entro");
+            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
+        }
+        if(transform.position.y > height)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);
+
+        }
         Vector3 fin;
         if (Input.GetMouseButtonUp(0))
         {
