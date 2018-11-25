@@ -8,12 +8,12 @@ public class PlayerControler : MonoBehaviour {
     Vector3 ini;
     Rigidbody2D rb;
    
-    [Range(1.0f,100000.0f)]
+    [Range(1.0f,300.0f)]
     [Tooltip("ball Speed. Value between 1 and 10.")]
     [Header("Bola")]
 
     public float Fuerza = 5f;
-
+    public gameObject balls;
 	void Start () {
         ini =  gameObject.transform.position;
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -24,10 +24,21 @@ public class PlayerControler : MonoBehaviour {
         Vector3 fin;
         if (Input.GetMouseButtonUp(0))
         {
-            fin = Input.mousePosition;
-            rb.AddForce(new Vector2(((fin.x-Screen.width/2) - ini.x), (fin.y - ini.y))); //* (Fuerza*10));
+            fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
+            //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
+            rb.AddForce(new Vector2(fin.x - ini.x, fin.y - ini.y).normalized * Fuerza);
+            //hacer un for con el numero actual de bolas que hay en el nivel, y llamar con el invoke o con una
+            //coroutine al metodo instance balls para instanciar una bola y darle la fuerza.
         }
 	}
+
+    void instanceBalls(){
+        //instanciar el gameObject balls declarado arriba
+        //añadir la fuerza
+
+        //las pelotas estan en una layer de fisica para que no se colisionen entre sí
+
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.gameObject.CompareTag("Cubos"))
