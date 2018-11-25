@@ -7,6 +7,7 @@ public class ReadMap : MonoBehaviour {
    public int[,] Mapa;
     public int[,] Mapa2;
     public int tam = 11;
+    public GameObject bloque;
 
 	// Use this for initialization
 	void Start () {
@@ -14,6 +15,7 @@ public class ReadMap : MonoBehaviour {
         Mapa = new int[tam, tam];
         Mapa2 = new int[tam,tam];
         ReadFile(1);
+        instantiateMap();
 	}
 	
 	// Update is called once per frame
@@ -21,7 +23,26 @@ public class ReadMap : MonoBehaviour {
         
 	}
     void instantiateMap(){
+        var width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; //TODO a esto habria que añadirle los margenes en caso de que no fuera vertical
+        var height = Camera.main.orthographicSize ;
 
+
+        float tilesize =  (float)2 * width / (float)tam;
+        Debug.Log(tilesize);
+       var auxi= (float)Screen.width / (float)Screen.height;
+
+
+        for (int i= 0; i< tam; i++){
+            for (int j = 0; j < tam; j++)
+                if(Mapa[i,j] == 1)
+            {
+                GameObject aux = Instantiate(bloque);
+               
+                aux.transform.localScale = new Vector3(tilesize , tilesize, aux.transform.localScale.z);
+                aux.transform.position = new Vector3(i*tilesize +(-width +tilesize/2.0f) , (-j*tilesize) +(height-tilesize/2),0);
+            }
+
+        }
 
     }
 

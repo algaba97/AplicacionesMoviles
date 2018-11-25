@@ -22,7 +22,7 @@ public class PlayerControler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         var width = Camera.main.orthographicSize * Screen.width / Screen.height; //TODO a esto habria que añadirle los margenes en caso de que no fuera vertical
-        var height = Camera.main.orthographicSize *  Screen.height / Screen.width;
+        var height = Camera.main.orthographicSize ;
 
         //rb.velocity = new Vector2(0.0f,0.0f);
 
