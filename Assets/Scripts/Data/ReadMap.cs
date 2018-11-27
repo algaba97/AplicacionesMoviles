@@ -14,7 +14,7 @@ public class ReadMap : MonoBehaviour {
         Debug.Log("Empezamos a leer");
         Mapa = new int[tam, tam];
         Mapa2 = new int[tam,tam];
-        ReadFile(1);
+        ReadFile(10);
         instantiateMap();
 	}
 	
@@ -39,6 +39,7 @@ public class ReadMap : MonoBehaviour {
                
                 aux.transform.localScale = new Vector3(tilesize , tilesize, aux.transform.localScale.z);
                 aux.transform.position = new Vector3(i*tilesize +(-width +tilesize/2.0f) , (-j*tilesize) +(height-tilesize/2),0);
+                    aux.GetComponent<BlockLogic>().setVida(Mapa2[i,j]+1);
             }
 
         }
