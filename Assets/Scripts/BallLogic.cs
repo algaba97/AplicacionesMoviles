@@ -26,7 +26,7 @@ public class BallLogic : MonoBehaviour {
 
         if (transform.position.x > width - 0.2f || transform.position.x < -width + 0.2f) //El 0.2 esta un poco a ojo punteito 
         {
-            Debug.Log(transform.position.x);
+
             rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y);
         }
         if (transform.position.y > height - 0.2f)

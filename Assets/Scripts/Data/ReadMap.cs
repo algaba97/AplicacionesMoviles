@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -14,7 +15,7 @@ public class ReadMap : MonoBehaviour {
         Debug.Log("Empezamos a leer");
         Mapa = new int[tam, tam];
         Mapa2 = new int[tam,tam];
-        ReadFile(10);
+        ReadFile(1);
         instantiateMap();
 	}
 	
@@ -28,18 +29,22 @@ public class ReadMap : MonoBehaviour {
 
 
         float tilesize =  (float)2 * width / (float)tam;
-      
 
 
-        for (int i= 0; i< tam; i++){
+
+        for (int i = 0; i < tam; i++)
+        {
             for (int j = 0; j < tam; j++)
-                if(Mapa[i,j] == 1)
             {
-                GameObject aux = Instantiate(bloque);
-               
-                aux.transform.localScale = new Vector3(tilesize , tilesize, aux.transform.localScale.z);
-                aux.transform.position = new Vector3(i*tilesize +(-width +tilesize/2.0f) , (-j*tilesize) +(height-tilesize/2),0);
-                    aux.GetComponent<BlockLogic>().setVida(Mapa2[i,j]+1);
+                if (Mapa[i, j] == 1)
+                {
+
+                    GameObject aux = Instantiate(bloque);
+
+                    aux.transform.localScale = new Vector3(tilesize, tilesize, aux.transform.localScale.z);
+                    aux.transform.position = new Vector3(j * tilesize + (-width + tilesize / 2.0f), (-i * tilesize) + (height - tilesize / 2.0f), 0);
+                    aux.GetComponent<BlockLogic>().setVida(Mapa2[i, j] );
+                }
             }
 
         }
@@ -62,7 +67,8 @@ public class ReadMap : MonoBehaviour {
                    
                     for(int i = 0; i < tam; i++)
                     {
-                       mapa +=reader.ReadLine();
+                        mapa +=reader.ReadLine();
+                        //Debug.Log(reader.ReadLine());
                     }
 
                   
@@ -77,20 +83,20 @@ public class ReadMap : MonoBehaviour {
         {
             for (int j = 0; j < tam; j++)
             {
-                Mapa[i, j] = int.Parse(mapa2[i*j +j][0].ToString());
+                Mapa[i, j] = (int)Char.GetNumericValue(mapa2[i*tam +j][0]);
+                Debug.Log(Mapa[i, j]);
             }
         }
         for (int i = 0; i < tam; i++)
         {
             for (int j = 0; j < tam; j++)
             {
-                Mapa2[i, j] = int.Parse(mapa2[tam *tam +i* j + j][0].ToString());
+               Mapa2[i, j] = (int)Char.GetNumericValue(mapa2[tam *tam -1 + i * tam + j][0]);
             }
         }
 
         //convertir maps2 en dos matrices  
-        Debug.Log(Mapa[0, 1]);
-        Debug.Log(Mapa[10,10]);
+     
 
     }
 }
