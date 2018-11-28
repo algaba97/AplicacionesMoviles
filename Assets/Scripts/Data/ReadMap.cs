@@ -9,6 +9,7 @@ public class ReadMap : MonoBehaviour {
     public int[,] Mapa2;
     public int tam = 11;
     public GameObject bloque;
+    public GameObject Pared;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +31,13 @@ public class ReadMap : MonoBehaviour {
 
         float tilesize =  (float)2 * width / (float)tam;
 
+        GameObject aux2 = Instantiate(Pared);
+        aux2.transform.position = new Vector3(-width , 0, 0);
+        aux2 = Instantiate(Pared);
+        aux2.transform.position = new Vector3(width, 0, 0);
+        aux2 = Instantiate(Pared);
+        aux2.transform.Rotate(new Vector3(0, 0,1), -90);
+        aux2.transform.position = new Vector3(0, height, 0);
 
 
         for (int i = 0; i < tam; i++)
