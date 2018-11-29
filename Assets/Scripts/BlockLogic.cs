@@ -23,7 +23,7 @@ public class BlockLogic : MonoBehaviour {
         {
             vida--;
             if (vida <= 0)
-                Destroy(this.gameObject);
+                this.gameObject.SetActive(false);
             
             texto.text = vida.ToString();
 

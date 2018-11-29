@@ -30,6 +30,7 @@ public class ReadMap : MonoBehaviour {
 
 
         float tilesize =  (float)2 * width / (float)tam;
+        GameManager.GM.SetTSize(tilesize);
 
         GameObject aux2 = Instantiate(Pared);
         aux2.transform.position = new Vector3(-width , 0, 0);
@@ -52,6 +53,7 @@ public class ReadMap : MonoBehaviour {
                     aux.transform.localScale = new Vector3(tilesize, tilesize, aux.transform.localScale.z);
                     aux.transform.position = new Vector3(j * tilesize + (-width + tilesize / 2.0f), (-i * tilesize) + (height - tilesize / 2.0f), 0);
                     aux.GetComponent<BlockLogic>().setVida(Mapa2[i, j] );
+                    GameManager.GM.AddCubo(aux);
                 }
             }
 
@@ -92,7 +94,7 @@ public class ReadMap : MonoBehaviour {
             for (int j = 0; j < tam; j++)
             {
                 Mapa[i, j] = (int)Char.GetNumericValue(mapa2[i*tam +j][0]);
-                Debug.Log(Mapa[i, j]);
+
             }
         }
         for (int i = 0; i < tam; i++)
