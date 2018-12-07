@@ -28,29 +28,34 @@ public class Spawner : MonoBehaviour {
             fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
             //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
             forceVector = new Vector2(fin.x - ini.x,fin.y - ini.y);
+             
             //borramos la bola que se mantenia para mantener el camino
             GameObject bolaF = GameManager.GM.GetPrimera();
             if (bolaF != null) Destroy(bolaF);
 
             //Borramos los bloques destruidos
 
+            SpawnBalls((uint)GameManager.GM.nBolas, forceVector);
           
-            StartCoroutine(instanceBalls());
             
                 //hacer un for con el numero actual de bolas que hay en el nivel, y llamar con el invoke o con una
             //coroutine al metodo instance balls para instanciar una bola y darle la fuerza.
         }
 	}
 
-    IEnumerator instanceBalls(){
+    void SpawnBalls(uint numballs,Vector2 dir) // Lo llamará posiblemente otro objeto no desde aquí dentro
+    {
+        StartCoroutine(instanceBalls(numballs,dir));
+    }
+    IEnumerator instanceBalls(uint numBalls, Vector2 dir){
    ;
-        int numBalls = GameManager.GM.nBolas;
+       
         for (int i = 0; i < numBalls; i++)
         {
             GameObject aux = Instantiate(balls, new Vector3(posx, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
-            
-            yield return new WaitForSeconds(0.1f);
+          
+            yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
         }
         posx = GameManager.GM.getX();
 
@@ -60,5 +65,7 @@ public class Spawner : MonoBehaviour {
         //las pelotas estan en una layer de fisica para que no se colisionen entre sí
 
     }
+
+    
 
 }

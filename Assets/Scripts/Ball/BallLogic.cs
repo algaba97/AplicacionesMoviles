@@ -14,26 +14,43 @@ public class BallLogic : MonoBehaviour {
 	void Update () {
 		
 	}
-    public void setForce(Vector2 force){
+    public void setForce(Vector2 force){ //Launch
         GetComponent<Rigidbody2D>().AddForce(force);
     }
-    void LateUpdate()
-    {
-       
 
+   public  void Stop()
+    {
+        rb.velocity = new Vector2(0, 0);
+    } 
+    /// <summary>
+    /// Crea una coroutine para ir acercando las bolas al sink, también llama al callback
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="time"></param>
+    /// <param name="callback"></param>
+    void MoveTo(Vector3 position,float time, System.Action<BallLogic> callback = null)
+    {
+        if (callback != null)
+
+        {
+            callback(this);
+           
+        }
+        StartCoroutine(MovetoCoroutine( position,time));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private IEnumerator MovetoCoroutine(Vector3 position, float time)
     {
-        if (!GameManager.GM.Ball(transform.position.x))
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            GameManager.GM.SetPrimera(this.gameObject);
-            rb.velocity = new Vector2(0, 0);
-        }
-        //gameObject.transform.position = ini;
+        yield return new WaitForSeconds(0.1f);
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (!GameManager.GM.Ball(transform.position.x))
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+     
+
+    //}
 }
