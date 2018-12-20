@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Block : Tile {
 
-	public Block(uint touches, bool canfall)
+	public Block()
     {
-        _pendingtouches = touches;
-        fall = canfall;
+        fall = true ;
     }
 }

@@ -21,6 +21,8 @@ public class LevelManager : MonoBehaviour {
 
     public void NewShot()
     {
+        boardManager.UpdateTiles();
+        boardManager.NextRound();
         deadZone.ResetPosition();
     }
      public Vector3 GetPosition()

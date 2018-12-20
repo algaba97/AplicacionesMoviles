@@ -13,6 +13,7 @@ public class BoardManager : MonoBehaviour
     {
         Board = new Tile[11, 11];
         tilesize = ts;
+        Debug.Log(tilesize);
         numeroTiles = 0;
         readMap = rd;
         gameManager = GameManager.getGM();
@@ -54,12 +55,13 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void NextRoud()
+    public void NextRound()
     {
         foreach(Tile tile in Board)
         {
             if (tile != null && tile.CanFall())
             {
+                Debug.Log("me muevo");
                 tile.gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x, 
                     tile.gameObject.transform.position.y - tilesize,
                     tile.gameObject.transform.position.z);
