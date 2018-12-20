@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
+    LevelManager LM;
     // Use this for initialization
     private Vector3 ini;
     private Vector2 forceVector;
@@ -12,19 +13,30 @@ public class Spawner : MonoBehaviour {
     [Header("Bola")]
     public float Fuerza = 5f;
     public GameObject balls;
-    float  posx = 0.0f;
+    Vector3 pos;
 	void Start () {
         ini = this.gameObject.transform.position;
-        posx = gameObject.transform.position.x;
+        pos = new Vector3(0, 0, 0);
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    
+   
+    public void Init(LevelManager aux)
+    {
+        LM = aux;
+
+    }
+    // Update is called once per frame
+    void Update () {
 
         Vector3 fin;
         if (Input.GetMouseButtonUp(0))
         {
+            //Lllama al levelManager para un nuevo disparo
+            LM.NewShot();
+            pos= LM.GetPosition();
+
             fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
             //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
             forceVector = new Vector2(fin.x - ini.x,fin.y - ini.y);
@@ -52,12 +64,12 @@ public class Spawner : MonoBehaviour {
        
         for (int i = 0; i < numBalls; i++)
         {
-            GameObject aux = Instantiate(balls, new Vector3(posx, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+            GameObject aux = Instantiate(balls, pos, Quaternion.identity);
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
           
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
         }
-        posx = GameManager.GM.getX();
+     
 
         //instanciar el gameObject balls declarado arriba
         //añadir la fuerza

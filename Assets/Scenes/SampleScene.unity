@@ -1261,6 +1261,48 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 921afbde7d7acc942a96b33366b69b06, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &618011502
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 618011504}
+  - component: {fileID: 618011503}
+  m_Layer: 0
+  m_Name: BallSink
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &618011503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 618011502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887ed519f891fa0448ed217a0ccc78f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  y: -4.31
+  label: {fileID: 0}
+--- !u!4 &618011504
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 618011502}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &632878371
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,7 +1644,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.005170822, y: -0.36021924}
@@ -1616,7 +1658,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.9788837, y: 0.27956152}
+  m_Size: {x: 6.743787, y: 0.27956152}
   m_EdgeRadius: 0
 --- !u!114 &939541602
 MonoBehaviour:
@@ -2073,6 +2115,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90.1
       objectReference: {fileID: 0}
+    - target: {fileID: 4241463946457666, guid: 1422bea23ff54014bb5cda02df8db800, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1422bea23ff54014bb5cda02df8db800, type: 2}
   m_IsPrefabAsset: 0
@@ -2254,6 +2300,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f769c042d3e7acf45af4fa0acb144fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ballsink: {fileID: 618011503}
+  spawner: {fileID: 939541599}
+  deadZone: {fileID: 939541602}
+  boardManager: {fileID: 0}
 --- !u!4 &1519299454
 Transform:
   m_ObjectHideFlags: 0

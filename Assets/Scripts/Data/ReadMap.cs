@@ -33,12 +33,12 @@ public class ReadMap : MonoBehaviour {
         GameManager.GM.SetTSize(tilesize);
 
         GameObject aux2 = Instantiate(Pared);
-        aux2.transform.position = new Vector3(-width , 0, 0);
+        aux2.transform.position = new Vector3(-width -0.25f , 0, 0);
         aux2 = Instantiate(Pared);
-        aux2.transform.position = new Vector3(width, 0, 0);
+        aux2.transform.position = new Vector3(width + 0.25f, 0, 0);
         aux2 = Instantiate(Pared);
         aux2.transform.Rotate(new Vector3(0, 0,1), -90);
-        aux2.transform.position = new Vector3(0, height, 0);
+        aux2.transform.position = new Vector3(0, height +0.25f, 0);
 
 
         for (int i = 0; i < tam; i++)

@@ -28,20 +28,25 @@ public class BallLogic : MonoBehaviour {
     /// <param name="position"></param>
     /// <param name="time"></param>
     /// <param name="callback"></param>
-    void MoveTo(Vector3 position,float time, System.Action<BallLogic> callback = null)
+   public  void MoveTo(Vector3 position,float time, System.Action<BallLogic> callback = null)
     {
-        if (callback != null)
-
-        {
-            callback(this);
+       
+          
            
-        }
-        StartCoroutine(MovetoCoroutine( position,time));
+       
+        StartCoroutine(MovetoCoroutine( position,time,callback));
     }
 
-    private IEnumerator MovetoCoroutine(Vector3 position, float time)
+    private IEnumerator MovetoCoroutine(Vector3 position, float time, System.Action<BallLogic> callback = null)
     {
-        yield return new WaitForSeconds(0.1f);
+        int vueltas = 100;
+        for (int i = 0; i < vueltas; i++)
+        {
+
+            transform.position = new Vector3((transform.position.x * (vueltas - i) + position.x * i) / vueltas, transform.position.y, transform.position.z);
+            yield return new WaitForSeconds(time / vueltas);
+        }
+        if (callback != null) { callback(this); }
     }
 
     //private void OnTriggerEnter2D(Collider2D collision)

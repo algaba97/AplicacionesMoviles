@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour {
 
-    BallSink ballsink;
-    Spawner spawner;
+   public BallSink ballsink;
+    public Spawner spawner;
     //AimController aimcontroller;
-    DeadZone deadZone;
-    BoardManager boardManager;
+    public DeadZone deadZone;
+    public BoardManager boardManager;
+    
+
+    private void Start()
+    {
+        deadZone.Init(this);
+        spawner.Init(this);
+    }
+
+    public void NewShot()
+    {
+        deadZone.ResetPosition();
+    }
+     public Vector3 GetPosition()
+    {
+        return ballsink.getPosition();
+    }
 }
