@@ -8,11 +8,13 @@ public class ReadMap : MonoBehaviour {
    public int[,] Mapa;
     public int[,] Mapa2;
     public int tam = 11;
-    public GameObject bloque;
+    public Tile bloque;
     public GameObject Pared;
+    GameManager gamemanager;
 
 	// Use this for initialization
 	void Start () {
+        gamemanager = GameManager.getGM();
         Debug.Log("Empezamos a leer");
         Mapa = new int[tam, tam];
         Mapa2 = new int[tam,tam];
@@ -30,7 +32,7 @@ public class ReadMap : MonoBehaviour {
 
 
         float tilesize =  (float)2 * width / (float)tam;
-        GameManager.GM.SetTSize(tilesize);
+        gamemanager.SetTSize(tilesize);
 
         GameObject aux2 = Instantiate(Pared);
         aux2.transform.position = new Vector3(-width -0.25f , 0, 0);
@@ -48,12 +50,12 @@ public class ReadMap : MonoBehaviour {
                 if (Mapa[i, j] == 1)
                 {
 
-                    GameObject aux = Instantiate(bloque);
+                    Tile aux = Instantiate(bloque);
 
-                    aux.transform.localScale = new Vector3(tilesize, tilesize, aux.transform.localScale.z);
-                    aux.transform.position = new Vector3(j * tilesize + (-width + tilesize / 2.0f), (-i * tilesize) + (height - tilesize / 2.0f), 0);
-                    aux.GetComponent<BlockLogic>().setVida(Mapa2[i, j] );
-                    GameManager.GM.AddCubo(aux);
+                    aux.gameObject.transform.localScale = new Vector3(tilesize, tilesize, aux.transform.localScale.z);
+                    aux.gameObject.transform.position = new Vector3(j * tilesize + (-width + tilesize / 2.0f), (-i * tilesize) + (height - tilesize / 2.0f), 0);
+                    aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j] );
+                    gamemanager.AddCubo(j,i,aux);
                 }
             }
 

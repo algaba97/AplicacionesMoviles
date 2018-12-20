@@ -14,7 +14,9 @@ public class Spawner : MonoBehaviour {
     public float Fuerza = 5f;
     public GameObject balls;
     Vector3 pos;
+    GameManager gameManager;
 	void Start () {
+        gameManager = GameManager.getGM();
         ini = this.gameObject.transform.position;
         pos = new Vector3(0, 0, 0);
 
@@ -42,12 +44,12 @@ public class Spawner : MonoBehaviour {
             forceVector = new Vector2(fin.x - ini.x,fin.y - ini.y);
              
             //borramos la bola que se mantenia para mantener el camino
-            GameObject bolaF = GameManager.GM.GetPrimera();
+            GameObject bolaF = gameManager.GetPrimera();
             if (bolaF != null) Destroy(bolaF);
 
             //Borramos los bloques destruidos
 
-            SpawnBalls((uint)GameManager.GM.nBolas, forceVector);
+            SpawnBalls((uint)gameManager.nBolas, forceVector);
           
             
                 //hacer un for con el numero actual de bolas que hay en el nivel, y llamar con el invoke o con una
@@ -68,13 +70,11 @@ public class Spawner : MonoBehaviour {
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
           
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
+            yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
         }
-     
+      
 
-        //instanciar el gameObject balls declarado arriba
-        //añadir la fuerza
-
-        //las pelotas estan en una layer de fisica para que no se colisionen entre sí
+  
 
     }
 

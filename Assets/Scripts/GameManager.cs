@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-    public static GameManager GM;
+   private static GameManager GM; // privada para que solo el gamemanager pueda crear la isnancia singletone
     public int nBolas = 50;
     int contador = 0;
     float iniX = 0.0f; //posicion desde donde se lanzan als bolas
     bool fBola = true;
     GameObject Primera;//primera bola que cae
     List<GameObject> Cubos;
+    BoardManager boardManager;
     float tsize = 0.0f;
 
     public void SetTSize(float aux)
     {
         tsize = aux;
     }
-    public void AddCubo(GameObject aux)//Añadir cubo a la lista
+
+    public void SetBoard(BoardManager bm)
     {
-        Cubos.Add(aux);
+        boardManager = bm;
+    }
+    public float getTilesize()
+    {
+        return tsize;
+    }
+    public void AddCubo(int x, int y, Tile tile)//Añadir cubo a la lista
+    {
+        if (boardManager != null)
+            boardManager.addTile(x,y,tile);
     }
     public void UpdateCubos()// ver cuales estan inactivos y borrarlos
     {
@@ -90,8 +101,8 @@ public class GameManager : MonoBehaviour {
 
     }
 	// Use this for initialization
-	void Start () {
-        GM = this;
+	void Awake () {
+        setGM(this);
         Cubos = new List<GameObject>();
 	}
 	
@@ -100,4 +111,13 @@ public class GameManager : MonoBehaviour {
 		
 	}
     public float getX() { return iniX; }
+    public static GameManager getGM()
+    {
+        return GM;
+    }
+
+   private void setGM(GameManager gm)
+    {
+        GM = gm;
+    }
 }

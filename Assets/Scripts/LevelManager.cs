@@ -9,12 +9,14 @@ public class LevelManager : MonoBehaviour {
     //AimController aimcontroller;
     public DeadZone deadZone;
     public BoardManager boardManager;
-    
+    GameManager gameManager;
+    public ReadMap readMap;
 
-    private void Start()
-    {
+    private void Start() {
+        gameManager = GameManager.getGM();
         deadZone.Init(this);
         spawner.Init(this);
+        boardManager.Init(gameManager.getTilesize(),readMap);
     }
 
     public void NewShot()
