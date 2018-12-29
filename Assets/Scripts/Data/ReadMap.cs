@@ -12,12 +12,14 @@ public class ReadMap : MonoBehaviour {
     public GameObject Pared;
     GameManager gamemanager;
     LevelManager LM;
-    //public Transform CanvasAbajo;
-    //public Transform CanvasArriba;
+    public Transform CanvasAbajo;
+    public Transform CanvasArriba;
     //public RectTransform CanvasAbajo; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasA; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasB; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public Camera cam;
+
+
 
     // Use this for initialization
     void Start () {
@@ -44,19 +46,19 @@ public class ReadMap : MonoBehaviour {
         var height = Camera.main.orthographicSize ;
         bool v = true;
 
-        float tilesize =  (float)2 * width / (float)tam;
-        if (((float)2 * height / ((float)tam + 1)) < tilesize)
-        {
-            tilesize = (float)2 * height / ((float)tam + 1); //decidimos el tamañod el tile dependiendo de la pantalla
-            v = false; // para indicar que no es vertical, lo usaremos en el siguiente paso
-            Debug.Log("soy horizontal");
-        }
+        float tilesize = (float)2 * width / (float)tam;
+        //if (((float)2 * height / ((float)tam + 1)) < tilesize)
+        //{
+        //    tilesize = (float)2 * height / ((float)tam + 1); //decidimos el tamañod el tile dependiendo de la pantalla
+        //    v = false; // para indicar que no es vertical, lo usaremos en el siguiente paso
+        //    Debug.Log("soy horizontal");
+        //}
 
 
-        if (tilesize * 16.0f > (height * 2.0f))
+        if (tilesize * 17.0f > (height * 2.0f))
         {
             Debug.Log("entra");
-            tilesize = height * 2 / 16.0f;
+            tilesize = height * 2 / 17.0f;
         }
     
        
@@ -64,31 +66,31 @@ public class ReadMap : MonoBehaviour {
         //calculamos el espacio que sobra arriba y abajo aka margenes
         float margenY;
         float margenX;
-        margenY =( height*2.0f -(tilesize *12.0f));
+        margenY =( height*2.0f -(tilesize *13.0f)) /2.0f;
       
         margenX = (width*2.0f - (tilesize * 11)) / 2.0f;
-      
-        //CanvasAbajo.localScale+= new Vector3(width * 2.0f , margenY/2.0f, 0.0f);
-        //CanvasAbajo.SetPositionAndRotation(new Vector3(0, -height + CanvasAbajo.localScale.y/2.0f, 0), new Quaternion(0, 0, 0,0));
 
-        //CanvasArriba.localScale += new Vector3(width * 2.0f, -margenY / 2.0f, 0.0f);
-        //CanvasArriba.SetPositionAndRotation(new Vector3(0, +height - CanvasAbajo.localScale.y / 2.0f, 0), new Quaternion(0, 0, 0, 0));
+        CanvasAbajo.localScale += new Vector3(width * 2.0f, margenY, 0.0f);
+        CanvasAbajo.SetPositionAndRotation(new Vector3(0, -height + CanvasAbajo.localScale.y / 2.0f, -1.0f), new Quaternion(0, 0, 0, 0));
 
-        float y2 = cam.WorldToScreenPoint(new Vector3(0, margenY/2.0f, 0)).y/ Camera.main.orthographicSize ;
+        CanvasArriba.localScale += new Vector3(width * 2.0f, -margenY, 0.0f);
+        CanvasArriba.SetPositionAndRotation(new Vector3(0, +height - CanvasArriba.localScale.y / 2.0f, -1.0f), new Quaternion(0, 0, 0, 0));
+
+        float y2 = cam.WorldToScreenPoint(new Vector3(0.0f, margenY, 0.0f)).y/ Camera.main.orthographicSize ;
         Debug.Log("y2");
         Debug.Log(y2);
    
         CanvasA.offsetMin = new Vector2(0, 0);
-        CanvasA.offsetMax = new Vector2(0, -((float)Screen.height - y2 ));
-        Debug.Log(-((float)Screen.height - y2));
+        CanvasA.offsetMax = new Vector2(0, -((float)Screen.height -y2));
+        Debug.Log(Screen.height);
         Debug.Log(Camera.main.orthographicSize);
 
         CanvasB.offsetMin = new Vector2(0, (float)Screen.height -y2);
         CanvasB.offsetMax = new Vector2(0, 0);
 
+        //Ajustamos el ballsink
 
-
-
+       // LM.ballsink.SetPosition(-height + CanvasAbajo.localScale.y / 2.0f);
 
         gamemanager.SetTSize(tilesize);
 
@@ -98,7 +100,7 @@ public class ReadMap : MonoBehaviour {
         aux2.transform.position = new Vector3(width + 0.25f, 0, 0);
         aux2 = Instantiate(Pared);
         aux2.transform.Rotate(new Vector3(0, 0,1), -90);
-        aux2.transform.position = new Vector3(0, height -margenY/2.0f +0.25f, 0);
+        aux2.transform.position = new Vector3(0, height -margenY +0.25f, 0);
 
 
         for (int i = 0; i < tam; i++)
@@ -114,7 +116,7 @@ public class ReadMap : MonoBehaviour {
                     aux.gameObject.transform.localScale = new Vector3(tilesize, tilesize, aux.transform.localScale.z);
                     aux.gameObject.transform.position = new Vector3(
                         j * tilesize + (-width + tilesize / 2.0f) +margenX,
-                        (-i * tilesize) + (height - tilesize / 2.0f) -margenY/2.0f,
+                        (-i * tilesize) + (height - tilesize / 2.0f) -margenY -tilesize,
                         0);
                    
                     aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j] );
