@@ -12,11 +12,12 @@ public class ReadMap : MonoBehaviour {
     public GameObject Pared;
     GameManager gamemanager;
     LevelManager LM;
-    public Transform CanvasAbajo;
-    public Transform CanvasArriba;
+    //public Transform CanvasAbajo;
+    //public Transform CanvasArriba;
     //public RectTransform CanvasAbajo; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
-    //public RectTransform CanvasArriba; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
-    //public Camera cam;
+    public RectTransform CanvasA; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
+    public RectTransform CanvasB; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
+    public Camera cam;
 
     // Use this for initialization
     void Start () {
@@ -46,39 +47,44 @@ public class ReadMap : MonoBehaviour {
         float tilesize =  (float)2 * width / (float)tam;
         if (((float)2 * height / ((float)tam + 1)) < tilesize)
         {
-            tilesize = (float)2 * height / ((float)tam + 1); //Decidimos el tamañod el tile dependiendo de la pantalla
+            tilesize = (float)2 * height / ((float)tam + 1); //decidimos el tamañod el tile dependiendo de la pantalla
             v = false; // para indicar que no es vertical, lo usaremos en el siguiente paso
-            Debug.Log("Soy Horizontal");
+            Debug.Log("soy horizontal");
         }
 
-        Debug.Log(width * 2.0f);
+
         if (tilesize * 16.0f > (height * 2.0f))
         {
             Debug.Log("entra");
             tilesize = height * 2 / 16.0f;
         }
+    
        
 
         //calculamos el espacio que sobra arriba y abajo aka margenes
         float margenY;
         float margenX;
-        margenY =( height*2 -(tilesize *12.0f));
+        margenY =( height*2.0f -(tilesize *12.0f));
       
-        margenX = (width*2 - (tilesize * 11)) / 2.0f;
-        Debug.Log(margenY);
-        CanvasAbajo.localScale+= new Vector3(width * 2.0f , margenY/2.0f, 0.0f);
-        CanvasAbajo.SetPositionAndRotation(new Vector3(0, -height + CanvasAbajo.localScale.y/2.0f, 0), new Quaternion(0, 0, 0,0));
+        margenX = (width*2.0f - (tilesize * 11)) / 2.0f;
+      
+        //CanvasAbajo.localScale+= new Vector3(width * 2.0f , margenY/2.0f, 0.0f);
+        //CanvasAbajo.SetPositionAndRotation(new Vector3(0, -height + CanvasAbajo.localScale.y/2.0f, 0), new Quaternion(0, 0, 0,0));
 
-        CanvasArriba.localScale += new Vector3(width * 2.0f, -margenY / 2.0f, 0.0f);
-        CanvasArriba.SetPositionAndRotation(new Vector3(0, +height - CanvasAbajo.localScale.y / 2.0f, 0), new Quaternion(0, 0, 0, 0));
-        //float y2 = cam.WorldToScreenPoint(new Vector3(0, margenY/2.0f, 0)).y/ Camera.main.orthographicSize;
+        //CanvasArriba.localScale += new Vector3(width * 2.0f, -margenY / 2.0f, 0.0f);
+        //CanvasArriba.SetPositionAndRotation(new Vector3(0, +height - CanvasAbajo.localScale.y / 2.0f, 0), new Quaternion(0, 0, 0, 0));
 
-        //CanvasAbajo.offsetMin = new Vector2(0,0);
-        //CanvasAbajo.offsetMax = new Vector2(0,-((float)Screen.height  -y2/2.0f));
-        //Debug.Log(margenY);
+        float y2 = cam.WorldToScreenPoint(new Vector3(0, margenY/2.0f, 0)).y/ Camera.main.orthographicSize ;
+        Debug.Log("y2");
+        Debug.Log(y2);
+   
+        CanvasA.offsetMin = new Vector2(0, 0);
+        CanvasA.offsetMax = new Vector2(0, -((float)Screen.height - y2 ));
+        Debug.Log(-((float)Screen.height - y2));
+        Debug.Log(Camera.main.orthographicSize);
 
-        //CanvasArriba.offsetMin = new Vector2(0, (float)Screen.height -y2);
-        //CanvasArriba.offsetMax = new Vector2(0, 0);
+        CanvasB.offsetMin = new Vector2(0, (float)Screen.height -y2);
+        CanvasB.offsetMax = new Vector2(0, 0);
 
 
 
