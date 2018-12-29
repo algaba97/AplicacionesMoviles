@@ -13,6 +13,8 @@ public class ReadMap : MonoBehaviour {
     GameManager gamemanager;
     LevelManager LM;
     public RectTransform CanvasAbajo; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
+    public RectTransform CanvasArriba; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
+    public Camera cam;
 
     // Use this for initialization
     void Start () {
@@ -35,7 +37,7 @@ public class ReadMap : MonoBehaviour {
         
 	}
     void instantiateMap(){
-        var width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; //TODO a esto habria que añadirle los margenes en caso de que no fuera vertical
+        var width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; 
         var height = Camera.main.orthographicSize ;
         bool v = true;
 
@@ -56,10 +58,17 @@ public class ReadMap : MonoBehaviour {
         float margenX;
         margenY =( height*2 -(tilesize *14));
         margenX = (width*2 - (tilesize * 11)) / 2.0f;
+        Debug.Log(margenY);
 
-        //Con los margenes ajustamos los canvas
+        float y2 = cam.WorldToScreenPoint(new Vector3(0, margenY, 0)).y/ Camera.main.orthographicSize;
+    
+        CanvasAbajo.offsetMin = new Vector2(0,0);
+        CanvasAbajo.offsetMax = new Vector2(0,-((float)Screen.height  -y2));
 
-        Debug.Log(margenX);
+        CanvasArriba.offsetMin = new Vector2(0, (float)Screen.height -y2);
+        CanvasArriba.offsetMax = new Vector2(0, 0);
+
+
 
 
 
