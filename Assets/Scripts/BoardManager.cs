@@ -9,6 +9,13 @@ public class BoardManager : MonoBehaviour
     int numeroTiles;
     ReadMap readMap;
     GameManager gameManager;
+
+    GameObject Primera;//primera bola que cae
+    public int nBolas = 50;
+    int contador = 0;
+    bool fBola = true;
+    float iniX = 0.0f;
+
     public void Init(float ts, ReadMap rd)
     {
         Board = new Tile[11, 11];
@@ -55,18 +62,52 @@ public class BoardManager : MonoBehaviour
         }
     }
 
-    public void NextRound()
+    public bool Ball(GameObject aux)// para llevar el conteo de bolas y ver si es la primera para guardar la x
     {
+        contador++;
+        
+        if (fBola)
+        {
+
+            fBola = false;
+            iniX = aux.transform.position.x;
+            Primera = aux;
+            return true;
+        }
+        else
+        {
+
+            if (contador >= nBolas)
+            {
+                UpdateTiles();
+                NextRound(gameManager.getTilesize());
+                contador = 0;
+                fBola = true;
+            }
+
+            return false;
+        }
+
+    }
+
+    public void NextRound(float ts)
+    {
+        tilesize = ts;
+
         foreach(Tile tile in Board)
         {
             if (tile != null && tile.CanFall())
             {
-                Debug.Log("me muevo");
+
                 tile.gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x, 
                     tile.gameObject.transform.position.y - tilesize,
                     tile.gameObject.transform.position.z);
             }
         }
+    }
+    public GameObject GetPrimera()
+    {
+        return Primera;
     }
 }
 

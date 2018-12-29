@@ -10,6 +10,12 @@ public class BallSink : MonoBehaviour {
     public Text label;
     private uint _numballs;
     bool first = false;
+    LevelManager LM;
+    public void Init(LevelManager aux)
+    {
+        LM = aux;
+
+    }
     void Reset( )
     {
         _numballs = 0;
@@ -33,7 +39,7 @@ public class BallSink : MonoBehaviour {
     }
     public void llega(BallLogic ball)
     {
+        LM.boardManager.Ball(ball.gameObject);
         Destroy(ball.gameObject);
-        Debug.Log("hE LLEGADO");
     }
 }

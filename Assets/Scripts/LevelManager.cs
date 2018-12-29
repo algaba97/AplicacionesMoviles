@@ -16,17 +16,20 @@ public class LevelManager : MonoBehaviour {
         gameManager = GameManager.getGM();
         deadZone.Init(this);
         spawner.Init(this);
+        ballsink.Init(this);
         boardManager.Init(gameManager.getTilesize(),readMap);
     }
 
     public void NewShot()
     {
-        boardManager.UpdateTiles();
-        boardManager.NextRound();
         deadZone.ResetPosition();
     }
      public Vector3 GetPosition()
     {
         return ballsink.getPosition();
+    }
+    public void llega(BallLogic bl)
+    {
+        Debug.Log("Holaaa");
     }
 }

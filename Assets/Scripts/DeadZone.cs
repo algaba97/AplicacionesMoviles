@@ -29,6 +29,7 @@ public class DeadZone : MonoBehaviour {
                 first = false;
                 LM.ballsink.SetPosition(ball.gameObject.transform.position.x);
                 auxBall = ball.gameObject;
+                LM.boardManager.Ball(ball.gameObject);
             }
             
             else ball.MoveTo(LM.ballsink.getPosition(), 1.0f, LM.ballsink.llega);

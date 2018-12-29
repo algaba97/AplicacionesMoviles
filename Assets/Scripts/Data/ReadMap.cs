@@ -11,9 +11,10 @@ public class ReadMap : MonoBehaviour {
     public Tile bloque;
     public GameObject Pared;
     GameManager gamemanager;
+    LevelManager LM;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         gamemanager = GameManager.getGM();
         Debug.Log("Empezamos a leer");
         Mapa = new int[tam, tam];
@@ -21,17 +22,44 @@ public class ReadMap : MonoBehaviour {
         ReadFile(1);
         instantiateMap();
 	}
-	
-	// Update is called once per frame
-	void Update () {
+
+    public void Init(LevelManager aux)
+    {
+        LM = aux;
+
+    }
+
+    // Update is called once per frame
+    void Update () {
         
 	}
     void instantiateMap(){
         var width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; //TODO a esto habria que añadirle los margenes en caso de que no fuera vertical
         var height = Camera.main.orthographicSize ;
-
+        bool v = true;
 
         float tilesize =  (float)2 * width / (float)tam;
+        if (((float)2 * height / ((float)tam + 1)) < tilesize)
+        {
+            tilesize = (float)2 * height / ((float)tam + 1); //Decidimos el tamañod el tile dependiendo de la pantalla
+            v = false; // para indicar que no es vertical, lo usaremos en el siguiente paso
+            Debug.Log("Soy Horizontal");
+        }
+
+       
+        if (tilesize * 16.0f > height*2) tilesize = height*2/ 16.0f;
+        
+
+        //calculamos el espacio que sobra arriba y abajo aka margenes
+        float margenY;
+        float margenX;
+        margenY =( height*2 -(tilesize *14))/2.0f;
+        margenX = (width*2 - (tilesize * 11)) / 2.0f;
+
+        Debug.Log(margenX);
+
+
+
         gamemanager.SetTSize(tilesize);
 
         GameObject aux2 = Instantiate(Pared);
@@ -53,7 +81,10 @@ public class ReadMap : MonoBehaviour {
                     Tile aux = Instantiate(bloque);
 
                     aux.gameObject.transform.localScale = new Vector3(tilesize, tilesize, aux.transform.localScale.z);
-                    aux.gameObject.transform.position = new Vector3(j * tilesize + (-width + tilesize / 2.0f), (-i * tilesize) + (height - tilesize / 2.0f), 0);
+                    aux.gameObject.transform.position = new Vector3(
+                        j * tilesize + (-width + tilesize / 2.0f) +margenX,
+                        (-i * tilesize) + (height - tilesize / 2.0f) -margenY,
+                        0);
                     aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j] );
                     gamemanager.AddCubo(j,i,aux);
                 }
@@ -65,7 +96,8 @@ public class ReadMap : MonoBehaviour {
 
     void ReadFile(int number)
     {
-        string path = "Assets/Mapas/mapdata" + number +".txt";
+        // string path = "Assets/Mapas/mapdata" + number +".txt";
+        string path = "Assets/Mapas/test.txt";
         string mapa = "";
 
         //Read the text from directly from the test.txt file

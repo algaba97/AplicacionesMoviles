@@ -44,12 +44,12 @@ public class Spawner : MonoBehaviour {
             forceVector = new Vector2(fin.x - ini.x,fin.y - ini.y);
              
             //borramos la bola que se mantenia para mantener el camino
-            GameObject bolaF = gameManager.GetPrimera();
+            GameObject bolaF = LM.boardManager.GetPrimera();
             if (bolaF != null) Destroy(bolaF);
 
             //Borramos los bloques destruidos
 
-            SpawnBalls((uint)gameManager.nBolas, forceVector);
+            SpawnBalls((uint)gameManager.boardManager.nBolas, forceVector);
           
             
                 //hacer un for con el numero actual de bolas que hay en el nivel, y llamar con el invoke o con una
