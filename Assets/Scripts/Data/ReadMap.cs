@@ -12,6 +12,7 @@ public class ReadMap : MonoBehaviour {
     public GameObject Pared;
     GameManager gamemanager;
     LevelManager LM;
+    public RectTransform CanvasAbajo; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
 
     // Use this for initialization
     void Start () {
@@ -53,8 +54,10 @@ public class ReadMap : MonoBehaviour {
         //calculamos el espacio que sobra arriba y abajo aka margenes
         float margenY;
         float margenX;
-        margenY =( height*2 -(tilesize *14))/2.0f;
+        margenY =( height*2 -(tilesize *14));
         margenX = (width*2 - (tilesize * 11)) / 2.0f;
+
+        //Con los margenes ajustamos los canvas
 
         Debug.Log(margenX);
 
