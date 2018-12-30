@@ -12,11 +12,14 @@ public class LevelManager : MonoBehaviour {
     GameManager gameManager;
     public ReadMap readMap;
 
+    float position; // posicion de spawn de bolas y deadzone
+
     private void Start() {
         gameManager = GameManager.getGM();
         deadZone.Init(this);
         spawner.Init(this);
         ballsink.Init(this);
+        readMap.Init(this);
         boardManager.Init(gameManager.getTilesize(),readMap);
     }
 
@@ -24,12 +27,17 @@ public class LevelManager : MonoBehaviour {
     {
         deadZone.ResetPosition();
     }
-     public Vector3 GetPosition()
-    {
-        return ballsink.getPosition();
-    }
+ 
     public void llega(BallLogic bl)
     {
         Debug.Log("Holaaa");
+    }
+    public void SetPosition(float aux)
+    {
+        position = aux;
+    }
+    public float GetPosition()
+    {
+        return position;
     }
 }

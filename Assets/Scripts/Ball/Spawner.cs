@@ -6,22 +6,25 @@ public class Spawner : MonoBehaviour {
 
     LevelManager LM;
     // Use this for initialization
-    private Vector3 ini;
+    private float ini = 0;
     private Vector2 forceVector;
     [Range(1.0f, 300.0f)]
     [Tooltip("ball Speed. Value between 1 and 10.")]
     [Header("Bola")]
     public float Fuerza = 5f;
     public GameObject balls;
-    Vector3 pos;
+    float pos;
     GameManager gameManager;
 	void Start () {
         gameManager = GameManager.getGM();
-        ini = this.gameObject.transform.position;
-        pos = new Vector3(0, 0, 0);
+      
+       
 
     }
-
+    public void setIni(float aux) // Set the spawn point
+    {
+        ini = aux;
+    }
     
    
     public void Init(LevelManager aux)
@@ -37,15 +40,15 @@ public class Spawner : MonoBehaviour {
         {
             //Lllama al levelManager para un nuevo disparo
             LM.NewShot();
-            pos= LM.GetPosition();
+            pos = LM.GetPosition();
+            Debug.Log(pos);
 
             fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
             //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
-            forceVector = new Vector2(fin.x - ini.x,fin.y - ini.y);
+
+            forceVector = new Vector2(fin.x ,fin.y - pos);
              
-            //borramos la bola que se mantenia para mantener el camino
-            GameObject bolaF = LM.boardManager.GetPrimera();
-            if (bolaF != null) Destroy(bolaF);
+            
 
             //Borramos los bloques destruidos
 
@@ -66,7 +69,7 @@ public class Spawner : MonoBehaviour {
        
         for (int i = 0; i < numBalls; i++)
         {
-            GameObject aux = Instantiate(balls, pos, Quaternion.identity);
+            GameObject aux = Instantiate(balls, new Vector3(0,pos,0), Quaternion.identity);
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
           
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate

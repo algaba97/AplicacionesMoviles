@@ -23,17 +23,20 @@ public class ReadMap : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        gamemanager = GameManager.getGM();
-        Debug.Log("Empezamos a leer");
-        Mapa = new int[tam, tam];
-        Mapa2 = new int[tam,tam];
-        ReadFile(1);
-        instantiateMap();
+      
 	}
 
     public void Init(LevelManager aux)
+
     {
         LM = aux;
+        gamemanager = GameManager.getGM();
+        Debug.Log("Empezamos a leer");
+        Mapa = new int[tam, tam];
+        Mapa2 = new int[tam, tam];
+        ReadFile(1);
+        instantiateMap();
+        
 
     }
 
@@ -101,7 +104,8 @@ public class ReadMap : MonoBehaviour {
         aux2 = Instantiate(Pared);
         aux2.transform.Rotate(new Vector3(0, 0,1), -90);
         aux2.transform.position = new Vector3(0, height -margenY +0.25f, 0);
-
+        Debug.Log(margenY);
+        LM.SetPosition( margenY - height);
 
         for (int i = 0; i < tam; i++)
         {
