@@ -14,6 +14,7 @@ public class Spawner : MonoBehaviour {
     public float Fuerza = 5f;
     public GameObject balls;
     float pos;
+    float posBola;
     GameManager gameManager;
 	void Start () {
         gameManager = GameManager.getGM();
@@ -41,12 +42,13 @@ public class Spawner : MonoBehaviour {
             //Lllama al levelManager para un nuevo disparo
             LM.NewShot();
             pos = LM.GetPosition();
+            posBola = LM.boardManager.GetPosBola();
             Debug.Log(pos);
 
             fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
             //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
 
-            forceVector = new Vector2(fin.x ,fin.y - pos);
+            forceVector = new Vector2(fin.x -posBola ,fin.y - pos);
              
             
 
@@ -66,10 +68,12 @@ public class Spawner : MonoBehaviour {
     }
     IEnumerator instanceBalls(uint numBalls, Vector2 dir){
    ;
-       
+        float ballsize;//El tamaño de la bola, afecta en la creación debiudo a que si no spwanea en el propio collider de la deadzone
+        ballsize = balls.transform.localScale.y * 3.0f;
         for (int i = 0; i < numBalls; i++)
         {
-            GameObject aux = Instantiate(balls, new Vector3(0,pos,0), Quaternion.identity);
+            
+            GameObject aux = Instantiate(balls, new Vector3(posBola, pos + ballsize, 0), Quaternion.identity);
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
           
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate

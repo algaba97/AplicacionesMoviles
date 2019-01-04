@@ -109,5 +109,13 @@ public class BoardManager : MonoBehaviour
     {
         return Primera;
     }
+    public float GetPosBola()
+    {
+        if (Primera != null)
+        {
+            return Primera.transform.position.x;
+        }
+        else return 0;
+    }
 }
 

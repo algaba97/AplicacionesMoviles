@@ -29,11 +29,7 @@ public class GameManager : MonoBehaviour {
             boardManager.addTile(x,y,tile);
     }
    
-    
    
-
-  
-
 
   
 	// Use this for initialization

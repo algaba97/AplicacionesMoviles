@@ -14,6 +14,8 @@ public class ReadMap : MonoBehaviour {
     LevelManager LM;
     public Transform CanvasAbajo;
     public Transform CanvasArriba;
+    public Transform CanvasDerecha;
+    public Transform CanvasIzquierda;
     //public RectTransform CanvasAbajo; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasA; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasB; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
@@ -44,18 +46,15 @@ public class ReadMap : MonoBehaviour {
     void Update () {
         
 	}
+    /// <summary>
+    /// Instanciamos el mapa previamente leido, margenes y colocamos los distitntos elementos del juego que encesiten colocación
+    /// </summary>
     void instantiateMap(){
         var width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; 
         var height = Camera.main.orthographicSize ;
         bool v = true;
 
         float tilesize = (float)2 * width / (float)tam;
-        //if (((float)2 * height / ((float)tam + 1)) < tilesize)
-        //{
-        //    tilesize = (float)2 * height / ((float)tam + 1); //decidimos el tamañod el tile dependiendo de la pantalla
-        //    v = false; // para indicar que no es vertical, lo usaremos en el siguiente paso
-        //    Debug.Log("soy horizontal");
-        //}
 
 
         if (tilesize * 17.0f > (height * 2.0f))
@@ -66,18 +65,26 @@ public class ReadMap : MonoBehaviour {
     
        
 
-        //calculamos el espacio que sobra arriba y abajo aka margenes
+        //calculamos el espacio que sobra arriba y abajo, los margenes
         float margenY;
         float margenX;
         margenY =( height*2.0f -(tilesize *13.0f)) /2.0f;
-      
         margenX = (width*2.0f - (tilesize * 11)) / 2.0f;
 
+        //Colocamos los bordes(estéticos) y el canvas inferior y superior 
         CanvasAbajo.localScale += new Vector3(width * 2.0f, margenY, 0.0f);
         CanvasAbajo.SetPositionAndRotation(new Vector3(0, -height + CanvasAbajo.localScale.y / 2.0f, -1.0f), new Quaternion(0, 0, 0, 0));
 
-        CanvasArriba.localScale += new Vector3(width * 2.0f, -margenY, 0.0f);
+        CanvasArriba.localScale += new Vector3(width * 2.0f, margenY, 0.0f);
         CanvasArriba.SetPositionAndRotation(new Vector3(0, +height - CanvasArriba.localScale.y / 2.0f, -1.0f), new Quaternion(0, 0, 0, 0));
+
+        CanvasDerecha.localScale += new Vector3(margenX, height*2, 0.0f);
+        CanvasDerecha.SetPositionAndRotation(new Vector3(+width -CanvasDerecha.localScale.x/2.0f, 0.0f, -1.0f), new Quaternion(0, 0, 0, 0));
+
+        CanvasIzquierda.localScale += new Vector3(margenX, height * 2, 0.0f);
+        CanvasIzquierda.SetPositionAndRotation(new Vector3(-width + CanvasDerecha.localScale.x / 2.0f, 0.0f, -1.0f), new Quaternion(0, 0, 0, 0));
+
+
 
         float y2 = cam.WorldToScreenPoint(new Vector3(0.0f, margenY, 0.0f)).y/ Camera.main.orthographicSize ;
         Debug.Log("y2");
@@ -91,20 +98,23 @@ public class ReadMap : MonoBehaviour {
         CanvasB.offsetMin = new Vector2(0, (float)Screen.height -y2);
         CanvasB.offsetMax = new Vector2(0, 0);
 
-        //Ajustamos el ballsink
-
-       // LM.ballsink.SetPosition(-height + CanvasAbajo.localScale.y / 2.0f);
+        //Colocamos la deadzone
+        BoxCollider2D deadzone = LM.deadZone.gameObject.GetComponent<BoxCollider2D>();
+        deadzone.size= new Vector2(width/6.0f,  margenY); // width/6.0f se ajusta al tamño de la pantalla
+        deadzone.offset = new Vector2(0, -height +margenY/2.0f ); //importante la altura del gameobject porqué afecta
 
         gamemanager.SetTSize(tilesize);
 
+        //colocamos los bordes fisicos
         GameObject aux2 = Instantiate(Pared);
-        aux2.transform.position = new Vector3(-width -0.25f , 0, 0);
+        aux2.transform.position = new Vector3(-width +margenX-0.25f , 0, 0);
         aux2 = Instantiate(Pared);
-        aux2.transform.position = new Vector3(width + 0.25f, 0, 0);
+        aux2.transform.position = new Vector3(width -margenX + 0.25f, 0, 0);
         aux2 = Instantiate(Pared);
         aux2.transform.Rotate(new Vector3(0, 0,1), -90);
         aux2.transform.position = new Vector3(0, height -margenY +0.25f, 0);
-        Debug.Log(margenY);
+  
+        //mandamos la posicion al leevlmanager para que lo tuilicen los demás componentes
         LM.SetPosition( margenY - height);
 
         for (int i = 0; i < tam; i++)
