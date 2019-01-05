@@ -19,8 +19,8 @@ public class LevelManager : MonoBehaviour {
         deadZone.Init(this);
         spawner.Init(this);
         ballsink.Init(this);
+        boardManager.Init(gameManager.getTilesize(),readMap,this);
         readMap.Init(this);
-        boardManager.Init(gameManager.getTilesize(),readMap);
     }
 
     public void NewShot()

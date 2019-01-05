@@ -26,7 +26,9 @@ public class GameManager : MonoBehaviour {
     public void AddCubo(int x, int y, Tile tile)//Añadir cubo a la lista
     {
         if (boardManager != null)
+        {
             boardManager.addTile(x,y,tile);
+        }
     }
    
    
