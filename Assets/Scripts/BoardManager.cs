@@ -90,7 +90,9 @@ public class BoardManager : MonoBehaviour
     {
         EnableShoot = true;
         NextLevelMenu.enabled = false;
-        readMap.NextLevel(2);
+        LM.nuevoNivel();
+        GameManager.getGM().setLevel(GameManager.getGM().getLevel() + 1);
+        readMap.NextLevel(GameManager.getGM().getLevel() );
         Primera.transform.position = new Vector2(0,Primera.transform.position.y);
 
         Debug.Log("Cargando nuevo mapa");

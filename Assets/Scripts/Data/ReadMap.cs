@@ -40,7 +40,7 @@ public class ReadMap : MonoBehaviour {
         Debug.Log("Empezamos a leer");
         Mapa = new int[tam, tam];
         Mapa2 = new int[tam, tam];
-        ReadFile(1);
+        ReadFile(GameManager.getGM().getLevel());
         instantiateMap();
         
 
@@ -145,6 +145,7 @@ public class ReadMap : MonoBehaviour {
                                         0);
 
                     aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j]);
+                    aux.gameObject.GetComponent<BlockLogic>().Init(LM);
                     gamemanager.AddCubo(j, i, aux);
                 }
             }

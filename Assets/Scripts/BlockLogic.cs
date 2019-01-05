@@ -4,13 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class BlockLogic : MonoBehaviour {
-
-    public int vida;
+    LevelManager LM;
     private TextMesh texto;
 	// Use this for initialization
 	void Start () {
         texto = GetComponentInChildren<TextMesh>();
-        texto.text = vida.ToString();
+        texto.text = GetComponent<Block>().getVida().ToString();
+    }
+    public void Init(LevelManager aux)
+    {
+        LM = aux;
     }
 
     // Update is called once per frame
@@ -21,16 +24,18 @@ public class BlockLogic : MonoBehaviour {
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            vida--;
-            if (vida <= 0)
+            if (GetComponent<Block>().Touch())
+            {
+                LM.bloqueRoto();
                 this.gameObject.SetActive(false);
+            }
             
-            texto.text = vida.ToString();
+            texto.text = GetComponent<Block>().getVida().ToString();
 
         }
 
     }
     public void setVida(int _v){
-        vida = _v;
+        GetComponent<Block>().setVida(_v);
     }
 }

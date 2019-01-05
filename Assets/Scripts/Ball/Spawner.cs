@@ -78,6 +78,7 @@ public class Spawner : MonoBehaviour {
           
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
+            yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
         }
       
 

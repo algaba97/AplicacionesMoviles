@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
    private static GameManager GM; // privada para que solo el gamemanager pueda crear la isnancia singletone
-   
+    int levelSelected = 1;
     
 
    public  BoardManager boardManager;
@@ -36,8 +36,12 @@ public class GameManager : MonoBehaviour {
   
 	// Use this for initialization
 	void Awake () {
-        setGM(this);
-  
+        if (GM == null)
+        {
+            setGM(this);
+            DontDestroyOnLoad(this);
+        }
+        else Destroy(this.gameObject);
 	}
 	
 	// Update is called once per frame
@@ -53,5 +57,13 @@ public class GameManager : MonoBehaviour {
    private void setGM(GameManager gm)
     {
         GM = gm;
+    }
+    public void setLevel(int l)
+    {
+        levelSelected = l;
+    }
+    public int getLevel()
+    {
+        return levelSelected;
     }
 }

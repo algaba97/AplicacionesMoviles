@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelButtons : MonoBehaviour {
 
@@ -24,7 +25,10 @@ public class LevelButtons : MonoBehaviour {
     }
     public void SelectLevel()
     {
-      //  Destroy(this);
-       Debug.Log("Hola soy el " + _id);
+        if (GameManager.getGM().getLevel() >= _id)
+        {
+            GameManager.getGM().setLevel(_id);
+            SceneManager.LoadScene(1);
+        }
     }
 }
