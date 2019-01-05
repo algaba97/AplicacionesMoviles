@@ -22,7 +22,11 @@ public class ReadMap : MonoBehaviour {
     public Camera cam;
 
 
-
+    float tilesize;
+    float width;
+    float height;
+    float margenY;
+    float margenX;
     // Use this for initialization
     void Start () {
       
@@ -50,11 +54,11 @@ public class ReadMap : MonoBehaviour {
     /// Instanciamos el mapa previamente leido, margenes y colocamos los distitntos elementos del juego que encesiten colocación
     /// </summary>
     void instantiateMap(){
-        var width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; 
-        var height = Camera.main.orthographicSize ;
+        width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; 
+        height = Camera.main.orthographicSize ;
         bool v = true;
 
-        float tilesize = (float)2 * width / (float)tam;
+       tilesize = (float)2 * width / (float)tam;
 
 
         if (tilesize * 17.0f > (height * 2.0f))
@@ -66,8 +70,7 @@ public class ReadMap : MonoBehaviour {
        
 
         //calculamos el espacio que sobra arriba y abajo, los margenes
-        float margenY;
-        float margenX;
+        
         margenY =( height*2.0f -(tilesize *13.0f)) /2.0f;
         margenX = (width*2.0f - (tilesize * 11)) / 2.0f;
 
@@ -117,6 +120,14 @@ public class ReadMap : MonoBehaviour {
         //mandamos la posicion al leevlmanager para que lo tuilicen los demás componentes
         LM.SetPosition( margenY - height);
 
+        InstanceMap();
+
+    }
+
+    void InstanceMap()
+    {
+
+
         for (int i = 0; i < tam; i++)
         {
             for (int j = 0; j < tam; j++)
@@ -129,23 +140,24 @@ public class ReadMap : MonoBehaviour {
 
                     aux.gameObject.transform.localScale = new Vector3(tilesize, tilesize, aux.transform.localScale.z);
                     aux.gameObject.transform.position = new Vector3(
-                        j * tilesize + (-width + tilesize / 2.0f) +margenX,
-                        (-i * tilesize) + (height - tilesize / 2.0f) -margenY -tilesize,
-                        0);
-                   
-                    aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j] );
-                    gamemanager.AddCubo(j,i,aux);
+                        j * tilesize + (-width + tilesize / 2.0f) + margenX,
+                                        (-i * tilesize) + (height - tilesize / 2.0f) - margenY - tilesize,
+                                        0);
+
+                    aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j]);
+                    gamemanager.AddCubo(j, i, aux);
                 }
             }
 
         }
-
     }
+    
 
+    
     void ReadFile(int number)
     {
-        // string path = "Assets/Mapas/mapdata" + number +".txt";
-        string path = "Assets/Mapas/test.txt";
+        string path = "Assets/Mapas/mapdata" + number +".txt";
+       // string path = "Assets/Mapas/test.txt";
         string mapa = "";
 
         //Read the text from directly from the test.txt file
@@ -191,4 +203,11 @@ public class ReadMap : MonoBehaviour {
      
 
     }
+    public void NextLevel(int number)
+    {
+        ReadFile(number);
+        InstanceMap();
+
+    }
+
 }

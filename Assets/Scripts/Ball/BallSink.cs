@@ -8,18 +8,14 @@ public class BallSink : MonoBehaviour {
     float position;// posaicion x , la y siempre será igual
     public  float y;
     public Text label;
-    private uint _numballs;
-    bool first = false;
+   
     LevelManager LM;
     public void Init(LevelManager aux)
     {
         LM = aux;
 
     }
-    void Reset( )
-    {
-        _numballs = 0;
-    }
+ 
     void Hide()
     {
         label.gameObject.SetActive(false);

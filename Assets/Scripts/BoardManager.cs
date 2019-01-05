@@ -18,6 +18,8 @@ public class BoardManager : MonoBehaviour
     float iniX = 0.0f;
 
     bool EnableShoot;// Variable que controla si puedes disparar o no
+
+    public Canvas NextLevelMenu;
     void Start()
     {
         EnableShoot = true;
@@ -48,8 +50,7 @@ public class BoardManager : MonoBehaviour
     public void UpdateTiles()
     {
        
-        if (numeroTiles != 0)
-        {
+        
             for (int i = 0; i < Board.GetLength(0); i++)
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
@@ -57,17 +58,20 @@ public class BoardManager : MonoBehaviour
                     {
                         if (!Board[i, j].gameObject.activeSelf)
                         {
-                          
-                            Destroy(Board[i, j]);
+
+                        
+                            Destroy(Board[i, j].gameObject);
                             Board[i, j] = null;
 
                             numeroTiles--;
                         }
                     }
                 }
-        }
+        
         if (numeroTiles == 0)
         {
+            EnableShoot = false;
+            NextLevelMenu.enabled = true;
             Debug.Log("SIguiente nivelo loko");
         }
         else
@@ -78,6 +82,18 @@ public class BoardManager : MonoBehaviour
     void GameOver()
     {
         Debug.Log("GameOver");
+      
+           
+
+    }
+    public void NextLevel()
+    {
+        EnableShoot = true;
+        NextLevelMenu.enabled = false;
+        readMap.NextLevel(2);
+        Primera.transform.position = new Vector2(0,Primera.transform.position.y);
+
+        Debug.Log("Cargando nuevo mapa");
     }
 
     public bool Ball(GameObject aux)// para llevar el conteo de bolas y ver si es la primera para guardar la x
