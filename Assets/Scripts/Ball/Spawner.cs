@@ -37,7 +37,7 @@ public class Spawner : MonoBehaviour {
     void Update () {
 
         Vector3 fin;
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && LM.boardManager.roundIsEnd())
         {
             //Lllama al levelManager para un nuevo disparo
             LM.NewShot();
