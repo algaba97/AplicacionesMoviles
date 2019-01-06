@@ -188,15 +188,47 @@ public class ReadMap : MonoBehaviour {
         {
             for (int j = 0; j < tam; j++)
             {
-                Mapa[i, j] = (int)Char.GetNumericValue(mapa2[i*tam +j][0]);
+                
+
+                if (mapa2[i * tam + j].Length >= 2 && (mapa2[i * tam + j][mapa2[i * tam + j].Length - 2] == '.'))// EWL string tiene al forma XXXXXXXX.0 y le borramos la final
+                {
+                    mapa2[i * tam + j] = mapa2[i * tam + j].Substring(0, mapa2[i * tam + j].Length - 2);
+                }
+
+
+                try {
+                    Mapa[i, j] = Convert.ToInt32(mapa2[i * tam + j]);
+                        }
+                catch
+                {
+                    Debug.Log("Error " +mapa2[i * tam + j]);
+                }
 
             }
         }
+     
         for (int i = 0; i < tam; i++)
         {
+           // Mapa2[i, j] = (int)Char.GetNumericValue(mapa2[tam * tam - 1 + i * tam + j][0]);
             for (int j = 0; j < tam; j++)
             {
-               Mapa2[i, j] = (int)Char.GetNumericValue(mapa2[tam *tam -1 + i * tam + j][0]);
+               
+
+                if (mapa2[tam * tam - 1 + i * tam + j].Length >= 2 && mapa2[tam * tam - 1 + i * tam + j][mapa2[tam * tam - 1 + i * tam + j].Length - 1] == '.') // EL string tiene la forma XXXXXXXXX. y le borramos el final
+                {
+                    mapa2[tam * tam - 1 + i * tam + j] = mapa2[tam * tam - 1 + i * tam + j].Substring(0, mapa2[tam * tam - 1 + i * tam + j].Length - 1);
+                }
+
+
+                try
+                {
+                    Mapa2[i, j] = Convert.ToInt32(mapa2[tam * tam - 1 + i * tam + j]);
+                 
+                }
+                catch
+                {
+                    Debug.Log("Error " + mapa2[tam * tam - 1 + i * tam + j]);
+                }
             }
         }
 
