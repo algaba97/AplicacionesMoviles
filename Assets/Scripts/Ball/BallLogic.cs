@@ -39,12 +39,14 @@ public class BallLogic : MonoBehaviour {
 
     private IEnumerator MovetoCoroutine(Vector3 position, float time, System.Action<BallLogic> callback = null)
     {
-        int vueltas = 100;
+        int vueltas = 10;
+        float total = (position.x - transform.position.x)/vueltas;
         for (int i = 0; i < vueltas; i++)
         {
 
-            transform.position = new Vector3((transform.position.x * (vueltas - i) + position.x * i) / vueltas, transform.position.y, transform.position.z);
-            yield return new WaitForSeconds(time / vueltas);
+            transform.position = new Vector3(transform.position.x + total, transform.position.y, position.z);
+            //yield return new WaitForSeconds(time / vueltas);
+            yield return new WaitForFixedUpdate();
         }
         if (callback != null) { callback(this); }
     }

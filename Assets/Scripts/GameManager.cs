@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
    private static GameManager GM; // privada para que solo el gamemanager pueda crear la isnancia singletone
-    int levelSelected = 10;
+    int levelSelected = 1;
  
     float tsize = 0.0f;
 
