@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour {
         Debug.Log("AAAAAAAAAAA");
 
     }
+    public int getLeveldatos(int level)
+    {
+        return dataJuego.level[level];
+    }
    
 
   
