@@ -128,7 +128,6 @@ public class ReadMap : MonoBehaviour {
         InstanceMap();
         float auxTam = Mathf.Min((float)Screen.width / 11, (float)Screen.height / 18);
         float margenY_ = (Screen.height - auxTam * 14 )/ 2;
-        Debug.Log("W. " + Screen.width + "M: " + margenY_);
         CanvasA.sizeDelta = new Vector2(Screen.width, margenY_);
         CanvasB.sizeDelta = new Vector2(Screen.width, margenY_);
         CanvasC.sizeDelta = new Vector2(Screen.width, Screen.height - margenY_ * 2);
@@ -153,10 +152,7 @@ public class ReadMap : MonoBehaviour {
                         (j) * tilesize + (-width + tilesize / 2.0f) + margenX,
                                         (-(i - (filas - tam)) * tilesize) + (height - tilesize / 2.0f) - margenY - tilesize,
                                         0);
-                    //aux.gameObject.transform.position = new Vector3(
-                    //    j * tilesize,
-                    //    i * tilesize,
-                    //    0);
+                    
                     aux.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bloques/game_img_block" + Mapa[i, j] + "_1");
                     aux.gameObject.AddComponent<PolygonCollider2D>();
                     if (Mapa2[i, j] != 0)
@@ -239,7 +235,7 @@ public class ReadMap : MonoBehaviour {
             {
                
 
-                if (mapa2[ i * tam + j].Length >= 2 && mapa2[i * tam + j][mapa2 [i * tam + j].Length - 1] == '.') // EL string tiene la forma XXXXXXXXX. y le borramos el final
+                if (mapa2[ i * tam + j].Length >= 1 && mapa2[i * tam + j][mapa2 [i * tam + j].Length - 1] == '.') // EL string tiene la forma XXXXXXXXX. y le borramos el final
                 {
                     mapa2[ i * tam + j] = mapa2[ i * tam + j].Substring(0, mapa2[ i * tam + j].Length - 1);
                 }
