@@ -9,6 +9,7 @@ public class BlockLogic : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         texto = GetComponentInChildren<TextMesh>();
+        if(GetComponent<Block>().getVida() != 0)
         texto.text = GetComponent<Block>().getVida().ToString();
     }
     public void Init(LevelManager aux)
@@ -34,6 +35,11 @@ public class BlockLogic : MonoBehaviour {
 
         }
 
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+            Debug.Log("MasBolaspls");
     }
     public void setVida(int _v){
         GetComponent<Block>().setVida(_v);

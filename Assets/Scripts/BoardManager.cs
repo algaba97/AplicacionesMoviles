@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
-    Tile[,] Board;
+    
+    List<Tile> Board;
     float tilesize;
    public int numeroTiles;
     ReadMap readMap;
@@ -27,13 +28,12 @@ public class BoardManager : MonoBehaviour
 
     public void Init(float ts, ReadMap rd,LevelManager lm)
     {
-        Board = new Tile[11, 11];
+        Board = new List<Tile>();
         tilesize = ts;
         Debug.Log(tilesize);
         numeroTiles = 0;
         readMap = rd;
         gameManager = GameManager.getGM();
-        gameManager.SetBoard(this);
         LM = lm;
 
        
@@ -41,9 +41,9 @@ public class BoardManager : MonoBehaviour
 
 
     //Añadimos un tile al array e incrementamos el contador
-    public void addTile(int x, int y, Tile _tile)
+    public void addTile( Tile _tile)
     {
-        Board[x, y] = _tile;
+        Board.Add( _tile);
         numeroTiles++;
     }
     //miramos cuantos tiles estan desactivados y los sacamos del array y decrementamos el contador
@@ -51,21 +51,20 @@ public class BoardManager : MonoBehaviour
     {
        
         
-            for (int i = 0; i < Board.GetLength(0); i++)
-                for (int j = 0; j < Board.GetLength(1); j++)
-                {
-                    if (Board[i, j] != null && Board[i, j].CanFall())
+            for (int i = 0; i < Board.Count; i++)
+               
+                    if (Board[i] != null && Board[i].CanFall())
                     {
-                        if (!Board[i, j].gameObject.activeSelf)
+                        if (!Board[i].gameObject.activeSelf)
                         {
 
                         
-                            Destroy(Board[i, j].gameObject);
-                            Board[i, j] = null;
+                            Destroy(Board[i].gameObject);
+                            Board[i] = null;
 
                             numeroTiles--;
                         }
-                    }
+                    
                 }
         
         if (numeroTiles == 0)
@@ -140,6 +139,7 @@ public class BoardManager : MonoBehaviour
                     tile.gameObject.transform.position.y - tilesize,
                     tile.gameObject.transform.position.z);
                 if (tile.gameObject.transform.position.y - tile.gameObject.transform.localScale.y / 2.0f - 0.01f <= posy) // la altura del tile mas la mitad de la altura del tile, el 0.01 es por si pierde pixeles unity.
+                
                 {
                     GameOver();
                 }

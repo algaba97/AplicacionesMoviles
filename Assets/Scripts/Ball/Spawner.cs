@@ -54,7 +54,7 @@ public class Spawner : MonoBehaviour {
 
             //Borramos los bloques destruidos
 
-            SpawnBalls((uint)gameManager.boardManager.nBolas, forceVector);
+            SpawnBalls((uint)LM.getBM().nBolas, forceVector);
           
             
                 //hacer un for con el numero actual de bolas que hay en el nivel, y llamar con el invoke o con una

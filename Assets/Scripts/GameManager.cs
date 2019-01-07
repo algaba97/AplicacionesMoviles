@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
    private static GameManager GM; // privada para que solo el gamemanager pueda crear la isnancia singletone
-    int levelSelected = 1;
-    
-
-   public  BoardManager boardManager;
+    int levelSelected = 10;
+ 
     float tsize = 0.0f;
 
     public void SetTSize(float aux)
@@ -15,21 +13,12 @@ public class GameManager : MonoBehaviour {
         tsize = aux;
     }
 
-    public void SetBoard(BoardManager bm)
-    {
-        boardManager = bm;
-    }
+  
     public float getTilesize()
     {
         return tsize;
     }
-    public void AddCubo(int x, int y, Tile tile)//Añadir cubo a la lista
-    {
-        if (boardManager != null)
-        {
-            boardManager.addTile(x,y,tile);
-        }
-    }
+   
    
    
 

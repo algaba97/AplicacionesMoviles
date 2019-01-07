@@ -62,4 +62,8 @@ public class LevelManager : MonoBehaviour {
     {
         SceneManager.LoadScene(0);
     }
+    public BoardManager getBM()
+    {
+        return boardManager;
+    }
 }
