@@ -34,12 +34,14 @@ public class DataManager : MonoBehaviour
    
     public void ReadData()
     {
-        string filePath = Application.dataPath + "/Scenes/data.json";
+        string filePath = Application.dataPath + "/Scenes/data";
         if (File.Exists(filePath))
         {
             Debug.Log("Layendo datos");
             string dataAsJson = File.ReadAllText(filePath);
-            datos =JsonUtility.FromJson<DataJuego>(dataAsJson);
+            byte[] data = Convert.FromBase64String(dataAsJson);
+            string result = System.Text.Encoding.UTF8.GetString(data);
+            datos =JsonUtility.FromJson<DataJuego>(result);
 
         }
         else
@@ -60,9 +62,11 @@ public class DataManager : MonoBehaviour
     {
         //Log string to console window
         var json = JsonUtility.ToJson(datos);
-        string filePath = Application.dataPath + "/Scenes/data.json";
-       // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
-        File.WriteAllText(filePath, json);
+        string filePath = Application.dataPath + "/Scenes/data";
+        // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
+        byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
+        string data = Convert.ToBase64String(json2);
+        File.WriteAllText(filePath, data);
       
     }
 
