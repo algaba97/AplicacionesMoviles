@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour {
         levelSelected = dataJuego.levels;
 
     }
+    public int getLeveldatos(int level)
+    {
+        return dataJuego.level[level];
+    }
    
 
   
