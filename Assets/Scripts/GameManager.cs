@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
    private static GameManager GM; // privada para que solo el gamemanager pueda crear la isnancia singletone
+
+    //Guardado de datos
+    DataManager DM;
+    DataJuego dataJuego;
+
     int levelSelected = 10;
  
     float tsize = 0.0f;
@@ -19,7 +24,13 @@ public class GameManager : MonoBehaviour {
         return tsize;
     }
    
-   
+   public void setDM(DataManager aux)
+    {
+        DM = aux;
+        dataJuego = DM.getDatos();
+        levelSelected = dataJuego.levels;
+
+    }
    
 
   

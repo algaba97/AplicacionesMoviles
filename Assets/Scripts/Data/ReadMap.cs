@@ -229,7 +229,7 @@ public class ReadMap : MonoBehaviour {
             {
                
 
-                if (mapa2[ i * tam + j].Length >= 2 && mapa2[i * tam + j][mapa2 [i * tam + j].Length - 1] == '.') // EL string tiene la forma XXXXXXXXX. y le borramos el final
+                if (mapa2[ i * tam + j].Length >= 1 && mapa2[i * tam + j][mapa2 [i * tam + j].Length - 1] == '.') // EL string tiene la forma XXXXXXXXX. y le borramos el final
                 {
                     mapa2[ i * tam + j] = mapa2[ i * tam + j].Substring(0, mapa2[ i * tam + j].Length - 1);
                 }
