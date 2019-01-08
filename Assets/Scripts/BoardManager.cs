@@ -57,7 +57,7 @@ public class BoardManager : MonoBehaviour
                
                     if (Board[i] != null && Board[i].CanFall())
                     {
-                        if (!Board[i].gameObject.activeSelf)
+                if (!Board[i].gameObject.activeSelf && Board[i].GetComponent<BlockLogic>().canDestroy() )
                         {
 
                         
@@ -141,7 +141,8 @@ public class BoardManager : MonoBehaviour
                 tile.gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x, 
                     tile.gameObject.transform.position.y - tilesize,
                     tile.gameObject.transform.position.z);
-                if (tile.gameObject.transform.position.y - tile.gameObject.transform.localScale.y / 2.0f - 0.01f <= posy) // la altura del tile mas la mitad de la altura del tile, el 0.01 es por si pierde pixeles unity.
+                if (tile.gameObject.GetComponent<BlockLogic>().getY() == 0) tile.gameObject.SetActive(true);// miramos si está en la posición 0 para estar activado
+                if (tile.gameObject.GetComponent<BlockLogic>().gameOver()) // la altura del tile mas la mitad de la altura del tile, el 0.01 es por si pierde pixeles unity.
                 
                 {
                     GameOver();

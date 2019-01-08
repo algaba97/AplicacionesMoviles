@@ -5,6 +5,8 @@ using UnityEngine;
 public class Tile : MonoBehaviour {
 
     LevelManager lmanager;
+   
+
     void Init(LevelManager LM)
     {
         lmanager = LM;

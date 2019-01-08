@@ -134,8 +134,14 @@ public class ReadMap : MonoBehaviour {
                         aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j]);
                     }
 
-                    aux.gameObject.GetComponent<BlockLogic>().Init(LM);
-                    LM.getBM().addTile(aux);
+                    aux.gameObject.GetComponent<BlockLogic>().Init(LM,i-(filas-tam),j);
+                    //si i-(filas-tam) < 0 no deberiá pitnarse nada, lo deasctivamos y lo volveremos a activar en su momento
+                    if(i-(filas-tam) <0)
+                    {
+                        aux.gameObject.SetActive(false);
+                    }
+                    LM.getBM().addTile(aux); 
+
                 }
             }
 
