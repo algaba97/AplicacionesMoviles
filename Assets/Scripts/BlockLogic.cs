@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class BlockLogic : MonoBehaviour {
     LevelManager LM;
     private TextMesh texto;
+    public GameObject particles;
 	// Use this for initialization
 	void Start () {
         texto = GetComponentInChildren<TextMesh>();
@@ -27,8 +28,10 @@ public class BlockLogic : MonoBehaviour {
         {
             if (GetComponent<Block>().Touch())
             {
+                Instantiate(particles,transform.position,new Quaternion(0,0,0,0));
                 LM.bloqueRoto();
                 this.gameObject.SetActive(false);
+               
             }
             
             texto.text = GetComponent<Block>().getVida().ToString();

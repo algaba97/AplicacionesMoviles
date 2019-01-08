@@ -75,7 +75,7 @@ public class Spawner : MonoBehaviour {
             
             GameObject aux = Instantiate(balls, new Vector3(posBola, pos + ballsize, 0), Quaternion.identity);
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
-          
+            LM.getBM().addBall(aux.GetComponent<BallLogic>());
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate

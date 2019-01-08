@@ -13,10 +13,7 @@ public class ReadMap : MonoBehaviour {
     public GameObject Pared;
     GameManager gamemanager;
     LevelManager LM;
-    public Transform CanvasAbajo;
-    public Transform CanvasArriba;
-    public Transform CanvasDerecha;
-    public Transform CanvasIzquierda;
+    
     //public RectTransform CanvasAbajo; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasA; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasB; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
@@ -75,32 +72,9 @@ public class ReadMap : MonoBehaviour {
         margenY =( height*2.0f -(tilesize *14.0f)) /2.0f;
         margenX = (width*2.0f - (tilesize * 11)) / 2.0f;
 
-      //  Colocamos los bordes(estéticos) y el canvas inferior y superior
-        CanvasAbajo.localScale += new Vector3(width * 2.0f, margenY, 0.0f);
-        CanvasAbajo.SetPositionAndRotation(new Vector3(0, -height + CanvasAbajo.localScale.y / 2.0f, -1.0f), new Quaternion(0, 0, 0, 0));
+      
 
-        CanvasArriba.localScale += new Vector3(width * 2.0f, margenY, 0.0f);
-        CanvasArriba.SetPositionAndRotation(new Vector3(0, +height - CanvasArriba.localScale.y / 2.0f, -1.0f), new Quaternion(0, 0, 0, 0));
-
-        CanvasDerecha.localScale += new Vector3(margenX, height * 2, 0.0f);
-        CanvasDerecha.SetPositionAndRotation(new Vector3(+width - CanvasDerecha.localScale.x / 2.0f, 0.0f, -1.0f), new Quaternion(0, 0, 0, 0));
-
-        CanvasIzquierda.localScale += new Vector3(margenX, height * 2, 0.0f);
-        CanvasIzquierda.SetPositionAndRotation(new Vector3(-width + CanvasDerecha.localScale.x / 2.0f, 0.0f, -1.0f), new Quaternion(0, 0, 0, 0));
-
-
-
-        //float y2 = cam.WorldToScreenPoint(new Vector3(0.0f, margenY, 0.0f)).y/ Camera.main.orthographicSize ;
-        //Debug.Log("y2");
-        //Debug.Log(y2);
-
-
-        //Debug.Log(Screen.height);
-        //Debug.Log(Camera.main.orthographicSize);
-
-        //CanvasB.offsetMin = new Vector2(0, (float)Screen.height -y2);
-        //CanvasB.offsetMax = new Vector2(0, 0);
-
+    
         //Colocamos la deadzone
         BoxCollider2D deadzone = LM.deadZone.gameObject.GetComponent<BoxCollider2D>();
         deadzone.size= new Vector2(width/6.0f,  margenY); // width/6.0f se ajusta al tamño de la pantalla
@@ -118,7 +92,7 @@ public class ReadMap : MonoBehaviour {
  
         aux2.transform.position = new Vector3(width -margenX + scale/2, 0, 0);
         aux2 = Instantiate(Pared);
-        aux2.transform.localScale = new Vector3(1, tilesize * 13, scale);
+        aux2.transform.localScale = new Vector3(1, tilesize * 15, scale);
         aux2.transform.Rotate(new Vector3(0, 0,1), -90);
         aux2.transform.position = new Vector3(0, height -margenY +scale/2, 0);
   
@@ -235,7 +209,7 @@ public class ReadMap : MonoBehaviour {
             {
                
 
-                if (mapa2[ i * tam + j].Length >= 1 && mapa2[i * tam + j][mapa2 [i * tam + j].Length - 1] == '.') // EL string tiene la forma XXXXXXXXX. y le borramos el final
+                if (mapa2[ i * tam + j].Length >= 2 && mapa2[i * tam + j][mapa2 [i * tam + j].Length - 1] == '.') // EL string tiene la forma XXXXXXXXX. y le borramos el final
                 {
                     mapa2[ i * tam + j] = mapa2[ i * tam + j].Substring(0, mapa2[ i * tam + j].Length - 1);
                 }

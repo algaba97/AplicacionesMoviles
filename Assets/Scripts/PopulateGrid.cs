@@ -14,6 +14,7 @@ public class PopulateGrid : MonoBehaviour
     public Sprite desbloqueado2;
     public Sprite desbloqueado3;
     public int numNiveles;
+    GridLayoutGroup grid;
     void Start()
     {
         GM = GameManager.getGM();
@@ -27,11 +28,18 @@ public class PopulateGrid : MonoBehaviour
     }
     void Create()
     {
+        grid = gameObject.GetComponent<GridLayoutGroup>();
+
+        Vector2 size = LevelMenu.instance.getScrollViewSize();
+        grid.cellSize = new Vector2(size.x / 6.5f, size.y / 7.4f   );
+        grid.spacing = new Vector2(size.x / 18, size.y / 70);
         GameObject aux;
         for (int i = 1; i <= numNiveles; i++)
         {
             aux = (GameObject)Instantiate(boton, transform);
             aux.GetComponent<LevelButtons>().SetId(i);
+            aux.GetComponentInChildren<Text>().fontSize =(int) size.x / 20;
+            aux.GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(size.x / 12, size.x / 12);
             if(i <= GM.getLevel())
             {
 

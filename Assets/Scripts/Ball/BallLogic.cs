@@ -30,10 +30,6 @@ public class BallLogic : MonoBehaviour {
     /// <param name="callback"></param>
    public  void MoveTo(Vector3 position,float time, System.Action<BallLogic> callback = null)
     {
-       
-          
-           
-       
         StartCoroutine(MovetoCoroutine( position,time,callback));
     }
 

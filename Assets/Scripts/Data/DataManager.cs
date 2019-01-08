@@ -35,7 +35,8 @@ public class DataManager : MonoBehaviour
    
     public void ReadData()
     {
-        string filePath = Application.dataPath + "/Scenes/data";
+        Debug.Log(Application.dataPath);
+        string filePath = Application.dataPath + "/Resources/Mapas/data";
         if (File.Exists(filePath))
         {
             Debug.Log("Layendo datos");
@@ -63,10 +64,12 @@ public class DataManager : MonoBehaviour
     {
         //Log string to console window
         var json = JsonUtility.ToJson(datos);
-        string filePath = Application.dataPath + "/Scenes/data";
+        string filePath = Application.dataPath + "/Resources/Mapas/data";
+
         // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
         byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
         string data = Convert.ToBase64String(json2);
+        
         File.WriteAllText(filePath, data);
       
     }

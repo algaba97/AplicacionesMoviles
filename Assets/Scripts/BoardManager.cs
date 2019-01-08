@@ -6,6 +6,7 @@ public class BoardManager : MonoBehaviour
 {
     
     List<Tile> Board;
+    List<BallLogic> pelotas;
     float tilesize;
    public int numeroTiles;
     ReadMap readMap;
@@ -29,6 +30,7 @@ public class BoardManager : MonoBehaviour
     public void Init(float ts, ReadMap rd,LevelManager lm)
     {
         Board = new List<Tile>();
+        pelotas = new List<BallLogic>();
         tilesize = ts;
         Debug.Log(tilesize);
         numeroTiles = 0;
@@ -100,7 +102,8 @@ public class BoardManager : MonoBehaviour
     public bool Ball(GameObject aux)// para llevar el conteo de bolas y ver si es la primera para guardar la x
     {
         contador++;
-        
+        pelotas.Remove(aux.GetComponent<BallLogic>());
+
         if (fBola)
         {
 
@@ -119,7 +122,7 @@ public class BoardManager : MonoBehaviour
                 contador = 0;
                 fBola = true;
             }
-
+            
             return false;
         }
 
@@ -163,6 +166,18 @@ public class BoardManager : MonoBehaviour
         bool aux = EnableShoot;
         EnableShoot = false;
         return aux;
+    }
+    public void addBall(BallLogic b)
+    {
+        pelotas.Add(b);
+    }
+    public void duplicateVel()
+    {
+        foreach(BallLogic pel in pelotas)
+        {
+            pel.gameObject.GetComponent<Rigidbody2D>().velocity *= 2;
+
+        }
     }
 }
 

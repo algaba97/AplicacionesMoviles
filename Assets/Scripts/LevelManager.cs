@@ -7,13 +7,15 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour {
 
    public BallSink ballsink;
+    
     public Spawner spawner;
     //AimController aimcontroller;
     public DeadZone deadZone;
     public BoardManager boardManager;
     GameManager gameManager;
     public ReadMap readMap;
-    public Text puntos_texto;
+    public Slider puntos_bar;
+    public Image[] estrellas;
     int puntos = 0;
     int puntosASumar = 10;
 
@@ -26,7 +28,7 @@ public class LevelManager : MonoBehaviour {
         ballsink.Init(this);
         boardManager.Init(gameManager.getTilesize(),readMap,this);
         readMap.Init(this);
-        puntos_texto.text = "Puntos " + puntos.ToString();
+       
     }
 
     public void NewShot()
@@ -38,8 +40,20 @@ public class LevelManager : MonoBehaviour {
     {
         puntos += puntosASumar;
         puntosASumar += 10;
-        puntos_texto.text = "Puntos " + puntos.ToString();
+        puntos_bar.value = puntos/3000.0f;
+        if(puntos_bar.value >= 0.01f)
+        {
+            estrellas[0].enabled = true;
+        }
+        if (puntos_bar.value >= 0.6f)
+        {
+            estrellas[1].enabled = true;
+        }
+         if (puntos_bar.value >= 0.99f)
+        {
+            estrellas[2].enabled = true;
 
+        }
     }
     public void nuevoNivel()
     {
@@ -61,6 +75,10 @@ public class LevelManager : MonoBehaviour {
     public void goToSelectLevel()
     {
         SceneManager.LoadScene(0);
+    }
+    public void duplicateVelocity()
+    {
+        boardManager.duplicateVel();
     }
     public BoardManager getBM()
     {
