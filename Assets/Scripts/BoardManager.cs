@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoardManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class BoardManager : MonoBehaviour
 
     bool EnableShoot;// Variable que controla si puedes disparar o no
 
-    public Canvas NextLevelMenu;
+    public Image NextLevelMenu;
     void Start()
     {
         EnableShoot = true;
@@ -72,7 +73,7 @@ public class BoardManager : MonoBehaviour
         if (numeroTiles == 0)
         {
             EnableShoot = false;
-            NextLevelMenu.enabled = true;
+            NextLevelMenu.gameObject.SetActive(true);
             Debug.Log("SIguiente nivelo loko");
         }
         else
@@ -90,7 +91,8 @@ public class BoardManager : MonoBehaviour
     public void NextLevel()
     {
         EnableShoot = true;
-        NextLevelMenu.enabled = false;
+
+        NextLevelMenu.gameObject.SetActive(false);
         LM.nuevoNivel();
         GameManager.getGM().setLevel(GameManager.getGM().getLevel() + 1);
         readMap.NextLevel(GameManager.getGM().getLevel() );

@@ -18,6 +18,7 @@ public class ReadMap : MonoBehaviour {
     public RectTransform CanvasA; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasB; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public RectTransform CanvasC; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
+    public RectTransform PanelTop; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
     public Camera cam;
 
 
@@ -105,6 +106,10 @@ public class ReadMap : MonoBehaviour {
         CanvasA.sizeDelta = new Vector2(Screen.width, margenY_);
         CanvasB.sizeDelta = new Vector2(Screen.width, margenY_);
         CanvasC.sizeDelta = new Vector2(Screen.width, Screen.height - margenY_ * 2);
+        Vector2 rd3 = PanelTop.sizeDelta;
+        float tamqq = Mathf.Min((auxTam*11)/ rd3.x , margenY_/rd3.y);
+        PanelTop.localScale = new Vector2(tamqq, tamqq);
+
     }
 
     void InstanceMap()

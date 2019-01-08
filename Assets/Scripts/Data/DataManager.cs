@@ -16,15 +16,21 @@ public class DataJuego
 
 public class DataManager : MonoBehaviour
 {
+    static DataManager DM;
     DataJuego datos;
     GameManager Gm;
 
     void Start()
     {
-        DontDestroyOnLoad(this);
-        ReadData();
-        Gm = GameManager.getGM();
-        Gm.setDM(this);
+        if (DM == null)
+        {
+            DM = this;
+            DontDestroyOnLoad(this);
+            ReadData();
+            Gm = GameManager.getGM();
+            Gm.setDM(this);
+        }
+        else { Destroy(this.gameObject); }
         
     }
     public DataJuego getDatos() {
@@ -32,26 +38,25 @@ public class DataManager : MonoBehaviour
     }
 
 
-   
+
     public void ReadData()
     {
         Debug.Log(Application.dataPath);
-        TextAsset text = (TextAsset)Resources.Load("/Resources/Mapas/data", typeof(TextAsset));
         string filePath = Application.dataPath + "/Resources/Mapas/data";
         if (File.Exists(filePath))
         {
             Debug.Log("Layendo datos");
-           // string dataAsJson = File.ReadAllText(filePath);
-            byte[] data = Convert.FromBase64String(text.text);
+            string dataAsJson = File.ReadAllText(filePath);
+            byte[] data = Convert.FromBase64String(dataAsJson);
             string result = System.Text.Encoding.UTF8.GetString(data);
-            datos =JsonUtility.FromJson<DataJuego>(result);
+            datos = JsonUtility.FromJson<DataJuego>(result);
 
         }
         else
         {
             Debug.Log("creando datos");
             datos = new DataJuego();
-          
+
             datos.rubies = 50;
             datos.extratiros = 0;
             datos.level = new List<int>(3000);
@@ -61,21 +66,17 @@ public class DataManager : MonoBehaviour
 
         }
     }
-   public  void SaveData()
+    public void SaveData()
     {
         //Log string to console window
         var json = JsonUtility.ToJson(datos);
         string filePath = Application.dataPath + "/Resources/Mapas/data";
 
-       
+        // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
         byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
         string data = Convert.ToBase64String(json2);
-        TextAsset Text = new TextAsset(data);
 
-        
-        UnityEditor.AssetDatabase.CreateAsset(Text, "Assets/Resources/Mapas/data.txt");
-        UnityEditor.AssetDatabase.SaveAssets();
-       // File.WriteAllText(filePath, data);
+        File.WriteAllText(filePath, data);
 
     }
 

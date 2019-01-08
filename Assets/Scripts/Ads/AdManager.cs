@@ -13,7 +13,7 @@ public class AdManager : MonoBehaviour
     {
         gameManager = GameManager.getGM();
         rubies = gameManager.GetRubies();
-        textrubies.text = "Rubies :" + rubies;
+        textrubies.text = "x " + rubies;
         
     }
     public void ShowRewardedAd()
@@ -33,7 +33,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("The ad was successfully shown.");
                 gameManager.addRubies(10);
                 rubies = gameManager.GetRubies();
-                textrubies.text = "Rubies :" + rubies;
+                textrubies.text = "x " + rubies;
 
                 //
                 // YOUR CODE TO REWARD THE GAMER
@@ -43,7 +43,7 @@ public class AdManager : MonoBehaviour
             case ShowResult.Skipped:
                 gameManager.addRubies(1);
                 rubies = gameManager.GetRubies();
-                textrubies.text = "Rubies :" + rubies;
+                textrubies.text = "x " + rubies;
                 Debug.Log("The ad was skipped before reaching the end.");
                 break;
             case ShowResult.Failed:
