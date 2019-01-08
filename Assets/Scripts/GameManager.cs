@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+
 	}
 
     public static GameManager getGM()
@@ -73,5 +74,13 @@ public class GameManager : MonoBehaviour {
     public int getLevel()
     {
         return levelSelected;
+    }
+    public void  addRubies(int number)
+    {
+        dataJuego.rubies += number;
+    }
+    public int GetRubies()
+    {
+        return dataJuego.rubies;
     }
 }

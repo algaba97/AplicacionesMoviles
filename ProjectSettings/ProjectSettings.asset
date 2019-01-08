@@ -673,10 +673,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 2
-  cloudProjectId: 
+  cloudProjectId: 878ab254-df4e-4d22-940e-0a78c59e968a
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: BricksnBall
+  organizationId: algaba
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

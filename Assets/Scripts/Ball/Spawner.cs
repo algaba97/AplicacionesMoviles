@@ -37,28 +37,33 @@ public class Spawner : MonoBehaviour {
     void Update () {
 
         Vector3 fin;
-        if (Input.GetMouseButtonUp(0) && LM.boardManager.roundIsEnd())
+        if (Input.GetMouseButtonUp(0) )
         {
-            //Lllama al levelManager para un nuevo disparo
-            LM.NewShot();
+            //&& LM.boardManager.roundIsEnd()
             pos = LM.GetPosition();
-            posBola = LM.boardManager.GetPosBola();
-            Debug.Log(pos);
-
             fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
-            //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
+            Debug.Log("Posy " + pos + " fin " + fin.y);
+            if (pos< fin.y && LM.boardManager.roundIsEnd())
+            {
+                //Lllama al levelManager para un nuevo disparo
+                LM.NewShot();
+                posBola = LM.boardManager.GetPosBola();
+                Debug.Log(pos);
 
-            forceVector = new Vector2(fin.x -posBola ,fin.y - pos);
-             
-            
+                //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
 
-            //Borramos los bloques destruidos
+                forceVector = new Vector2(fin.x - posBola, fin.y - pos);
 
-            SpawnBalls((uint)LM.getBM().nBolas, forceVector);
-          
-            
+
+
+                //Borramos los bloques destruidos
+
+                SpawnBalls((uint)LM.getBM().nBolas, forceVector);
+
+
                 //hacer un for con el numero actual de bolas que hay en el nivel, y llamar con el invoke o con una
-            //coroutine al metodo instance balls para instanciar una bola y darle la fuerza.
+                //coroutine al metodo instance balls para instanciar una bola y darle la fuerza.
+            }
         }
 	}
 
