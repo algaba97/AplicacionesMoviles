@@ -153,6 +153,50 @@ public class BoardManager : MonoBehaviour
     public GameObject GetPrimera()
     {
         return Primera;
+    }/// <summary>
+    /// Destruye la ultima fila, como en Board estan ordenados desde lac reación buscamos el primer tile no nulo y borramos los siguientes que permanezcan
+    /// en la misma linea
+    /// </summary>
+    public void PowerUpDestroyLast()
+    {
+        float auxy = -1.0f; // nos obliga  ainicializar con cualquier valor
+        bool encontrado = false;
+        for (int i = 0; i < Board.Count; i++)
+        {
+            if (Board[i] != null)
+            {
+
+
+                if (!encontrado)
+                {
+                    encontrado = true;
+                    auxy = Board[i].gameObject.GetComponent<BlockLogic>().position.y;
+                    Destroy(Board[i].gameObject);
+                    Board[i] = null;
+
+                    numeroTiles--;
+                }
+                else
+                {
+
+                    if (Board[i].gameObject.GetComponent<BlockLogic>().position.y == auxy)
+                    {
+                        Destroy(Board[i].gameObject);
+                        Board[i] = null;
+
+                        numeroTiles--;
+                    }
+                    else
+                    {
+                        return;
+
+                    }
+                }
+
+            }
+        }
+
+
     }
     public float GetPosBola()
     {
