@@ -36,12 +36,13 @@ public class DataManager : MonoBehaviour
     public void ReadData()
     {
         Debug.Log(Application.dataPath);
+        TextAsset text = (TextAsset)Resources.Load("/Resources/Mapas/data", typeof(TextAsset));
         string filePath = Application.dataPath + "/Resources/Mapas/data";
         if (File.Exists(filePath))
         {
             Debug.Log("Layendo datos");
-            string dataAsJson = File.ReadAllText(filePath);
-            byte[] data = Convert.FromBase64String(dataAsJson);
+           // string dataAsJson = File.ReadAllText(filePath);
+            byte[] data = Convert.FromBase64String(text.text);
             string result = System.Text.Encoding.UTF8.GetString(data);
             datos =JsonUtility.FromJson<DataJuego>(result);
 
@@ -66,12 +67,16 @@ public class DataManager : MonoBehaviour
         var json = JsonUtility.ToJson(datos);
         string filePath = Application.dataPath + "/Resources/Mapas/data";
 
-        // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
+       
         byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
         string data = Convert.ToBase64String(json2);
+        TextAsset Text = new TextAsset(data);
+
         
-        File.WriteAllText(filePath, data);
-      
+        UnityEditor.AssetDatabase.CreateAsset(Text, "Assets/Resources/Mapas/data.txt");
+        UnityEditor.AssetDatabase.SaveAssets();
+       // File.WriteAllText(filePath, data);
+
     }
 
     public void setRubies(int value)
