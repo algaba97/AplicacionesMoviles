@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5613497602223946338}
   - component: {fileID: 9060999210274925469}
   - component: {fileID: 3650528832895530812}
-  - component: {fileID: 3320803133616922003}
   m_Layer: 0
   m_Name: DestroyParticles
   m_TagString: Untagged
@@ -49,7 +48,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -4699,15 +4698,3 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &3320803133616922003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901342321580915430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fa9ff33fc48c83438148f0f0521cdef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -81,6 +82,9 @@ public class BoardManager : MonoBehaviour
             EnableShoot = true;
         }
     }
+
+   
+
     void GameOver()
     {
         Debug.Log("GameOver");
@@ -103,6 +107,7 @@ public class BoardManager : MonoBehaviour
 
     public bool Ball(GameObject aux)// para llevar el conteo de bolas y ver si es la primera para guardar la x
     {
+        Debug.Log("he llehao");
         contador++;
         pelotas.Remove(aux.GetComponent<BallLogic>());
 
@@ -197,6 +202,7 @@ public class BoardManager : MonoBehaviour
 
             }
         }
+        UpdateTiles();
 
 
     }
@@ -210,6 +216,7 @@ public class BoardManager : MonoBehaviour
     }
     public bool roundIsEnd()
     {
+        Time.timeScale = 1;
         bool aux = EnableShoot;
         EnableShoot = false;
         return aux;
@@ -220,11 +227,19 @@ public class BoardManager : MonoBehaviour
     }
     public void duplicateVel()
     {
-        foreach(BallLogic pel in pelotas)
-        {
-            pel.gameObject.GetComponent<Rigidbody2D>().velocity *= 2;
-
-        }
+        Time.timeScale *= 2.0f;
+      
     }
+    public void takeDownAllBalls()
+    {
+
+         foreach (BallLogic pel in pelotas)
+           {
+            pel.Stop();
+            pel.MoveTo(LM.ballsink.getPosition(),10, true,LM.ballsink.llega);
+
+           }
+    }
+
 }
 

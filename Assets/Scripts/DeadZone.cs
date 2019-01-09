@@ -32,7 +32,7 @@ public class DeadZone : MonoBehaviour {
                 LM.boardManager.Ball(ball.gameObject);
             }
             
-            else ball.MoveTo(LM.ballsink.getPosition(), 1.0f, LM.ballsink.llega);
+            else ball.MoveTo(LM.ballsink.getPosition(), 10, false,LM.ballsink.llega);
             ball.Stop();
         }
 

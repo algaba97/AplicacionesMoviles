@@ -41,22 +41,25 @@ public class DataManager : MonoBehaviour
 
     public void ReadData()
     {
+        //PlayerPrefs.DeleteKey("datos");
         Debug.Log(Application.dataPath);
+
+        //if(PlayerPrefs.HasKey("datos"))
+        //{
         string filePath = Application.dataPath + "/Resources/Mapas/data";
-        if (File.Exists(filePath))
-        {
-            Debug.Log("Layendo datos");
+        if (File.Exists(filePath)) {
             string dataAsJson = File.ReadAllText(filePath);
+
+            //string dataAsJson = PlayerPrefs.GetString("datos");
             byte[] data = Convert.FromBase64String(dataAsJson);
             string result = System.Text.Encoding.UTF8.GetString(data);
+           
             datos = JsonUtility.FromJson<DataJuego>(result);
 
         }
         else
         {
-            Debug.Log("creando datos");
             datos = new DataJuego();
-
             datos.rubies = 50;
             datos.extratiros = 0;
             datos.level = new List<int>(3000);
@@ -75,8 +78,11 @@ public class DataManager : MonoBehaviour
         // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
         byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
         string data = Convert.ToBase64String(json2);
-
         File.WriteAllText(filePath, data);
+
+        //PlayerPrefs.SetString("datos", data);
+        //PlayerPrefs.Save();
+   
 
     }
 
@@ -101,6 +107,7 @@ public class DataManager : MonoBehaviour
             datos.level.Add(stars);
             datos.levels++;
             SaveData();
+            
         }
     }
 

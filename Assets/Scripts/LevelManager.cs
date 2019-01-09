@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour {
    public BallSink ballsink;
     
     public Spawner spawner;
-    //AimController aimcontroller;
     public DeadZone deadZone;
     public BoardManager boardManager;
     GameManager gameManager;
@@ -79,6 +78,11 @@ public class LevelManager : MonoBehaviour {
     public void duplicateVelocity()
     {
         boardManager.duplicateVel();
+    }
+    public void takeDownAllBalls()
+    {
+        boardManager.takeDownAllBalls();
+
     }
     public BoardManager getBM()
     {

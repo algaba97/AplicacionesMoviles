@@ -30,7 +30,7 @@ public class PopulateGrid : MonoBehaviour
     {
         grid = gameObject.GetComponent<GridLayoutGroup>();
 
-        Vector2 size = LevelMenu.instance.getScrollViewSize();
+        Vector2 size = AdjustScreen.instance.getMiddleCanvasSize();
         grid.cellSize = new Vector2(size.x / 6.5f, size.y / 7.4f   );
         grid.spacing = new Vector2(size.x / 18, size.y / 70);
         GameObject aux;
@@ -38,7 +38,7 @@ public class PopulateGrid : MonoBehaviour
         {
             aux = (GameObject)Instantiate(boton, transform);
             aux.GetComponent<LevelButtons>().SetId(i);
-            aux.GetComponentInChildren<Text>().fontSize =(int) size.x / 20;
+            
             aux.GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(size.x / 12, size.x / 12);
             if(i <= GM.getLevel())
             {
@@ -61,8 +61,9 @@ public class PopulateGrid : MonoBehaviour
 
                 }
                     
-            }
             aux.GetComponentInChildren<Text>().text = i.ToString() ;
+            }
+            
         }
     }
 }

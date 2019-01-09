@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
+/// <summary>
+///Script que lee e instancia un mapa desde un txt desde la carpeta "Assets/Resources/Mapas",
+///el GameManager es el que sabe que nivel es el que se va a jugar, y aqui se lo pedimos.
+/// </summary>
 public class ReadMap : MonoBehaviour {
    public int[,] Mapa;
     public int[,] Mapa2;
@@ -14,11 +17,7 @@ public class ReadMap : MonoBehaviour {
     GameManager gamemanager;
     LevelManager LM;
     
-    //public RectTransform CanvasAbajo; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
-    public RectTransform CanvasA; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
-    public RectTransform CanvasB; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
-    public RectTransform CanvasC; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
-    public RectTransform PanelTop; //Para ajustar el tamaño de los canvas, no me apaño con lo nativo de unity
+   
     public Camera cam;
 
 
@@ -38,7 +37,6 @@ public class ReadMap : MonoBehaviour {
         LM = aux;
         gamemanager = GameManager.getGM();
         Debug.Log("Empezamos a leer");
-       
         ReadFile(GameManager.getGM().getLevel());
         instantiateMap();
         
@@ -78,7 +76,7 @@ public class ReadMap : MonoBehaviour {
     
         //Colocamos la deadzone
         BoxCollider2D deadzone = LM.deadZone.gameObject.GetComponent<BoxCollider2D>();
-        deadzone.size= new Vector2(width/6.0f,  margenY); // width/6.0f se ajusta al tamño de la pantalla
+        deadzone.size= new Vector2(width*2,  margenY); // width/6.0f se ajusta al tamño de la pantalla
         deadzone.offset = new Vector2(0, -height +margenY/2.0f ); //importante la altura del gameobject porqué afecta
 
         gamemanager.SetTSize(tilesize);
@@ -97,18 +95,11 @@ public class ReadMap : MonoBehaviour {
         aux2.transform.Rotate(new Vector3(0, 0,1), -90);
         aux2.transform.position = new Vector3(0, height -margenY +scale/2, 0);
   
-        //mandamos la posicion al leevlmanager para que lo tuilicen los demás componentes
+        //mandamos la posicion de la Bola al leevlmanager para que lo tuilicen los demás componentes
         LM.SetPosition(  -7 * tilesize);
 
         InstanceMap();
-        float auxTam = Mathf.Min((float)Screen.width / 11, (float)Screen.height / 18);
-        float margenY_ = (Screen.height - auxTam * 14 )/ 2;
-        CanvasA.sizeDelta = new Vector2(Screen.width, margenY_);
-        CanvasB.sizeDelta = new Vector2(Screen.width, margenY_);
-        CanvasC.sizeDelta = new Vector2(Screen.width, Screen.height - margenY_ * 2);
-        Vector2 rd3 = PanelTop.sizeDelta;
-        float tamqq = Mathf.Min((auxTam*11)/ rd3.x , margenY_/rd3.y);
-        PanelTop.localScale = new Vector2(tamqq, tamqq);
+       
 
     }
 

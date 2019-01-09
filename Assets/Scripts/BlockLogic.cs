@@ -44,7 +44,8 @@ public class BlockLogic : MonoBehaviour {
         {
             if (GetComponent<Block>().Touch())
             {
-                Instantiate(particles,transform.position,new Quaternion(0,0,0,0));
+                Destroy(Instantiate(particles,transform.position,new Quaternion(0,0,0,0)),0.5f);
+                //Instantiate(particles,transform.position,new Quaternion(0,0,0,0));
                 LM.bloqueRoto();
                 this.gameObject.SetActive(false);
                

@@ -27,20 +27,26 @@ public class BallLogic : MonoBehaviour {
     /// </summary>
     /// <param name="position"></param>
     /// <param name="time"></param>
+    /// <param name="ejeY"></param>
     /// <param name="callback"></param>
-   public  void MoveTo(Vector3 position,float time, System.Action<BallLogic> callback = null)
+   public  void MoveTo(Vector3 position,int vueltas, bool ejeY, System.Action<BallLogic> callback = null)
     {
-        StartCoroutine(MovetoCoroutine( position,time,callback));
+        StartCoroutine(MovetoCoroutine( position, vueltas, ejeY, callback));
     }
 
-    private IEnumerator MovetoCoroutine(Vector3 position, float time, System.Action<BallLogic> callback = null)
+    private IEnumerator MovetoCoroutine(Vector3 position, int vueltas, bool ejeY, System.Action<BallLogic> callback = null)
     {
-        int vueltas = 10;
-        float total = (position.x - transform.position.x)/vueltas;
+       
+        float totalx = (position.x - transform.position.x)/vueltas;
+        float totaly = 0;
+        if (ejeY)
+        {
+             totaly = (position.y - transform.position.y) / vueltas;
+        }
         for (int i = 0; i < vueltas; i++)
         {
 
-            transform.position = new Vector3(transform.position.x + total, transform.position.y, position.z);
+            transform.position = new Vector3(transform.position.x + totalx, transform.position.y + totaly, position.z);
             //yield return new WaitForSeconds(time / vueltas);
             yield return new WaitForFixedUpdate();
         }

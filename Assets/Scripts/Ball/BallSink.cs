@@ -6,14 +6,12 @@ using UnityEngine.UI;
 public class BallSink : MonoBehaviour {
 
     float position;// posaicion x , la y siempre será igual
-    public  float y;
     public Text label;
    
     LevelManager LM;
     public void Init(LevelManager aux)
     {
         LM = aux;
-
     }
  
     void Hide()
@@ -31,7 +29,7 @@ public class BallSink : MonoBehaviour {
    public Vector3 getPosition()
     {
 
-        return new Vector3(position, y, 0);
+        return new Vector3(position, LM.GetPosition(), 0);
     }
     public void llega(BallLogic ball)
     {

@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour {
     // Use this for initialization
     private float ini = 0;
     private Vector2 forceVector;
-    [Range(1.0f, 300.0f)]
+    [Range(1.0f, 500.0f)]
     [Tooltip("ball Speed. Value between 1 and 10.")]
     [Header("Bola")]
     public float Fuerza = 5f;
@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour {
             //&& LM.boardManager.roundIsEnd()
             pos = LM.GetPosition();
             fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
-            Debug.Log("Posy " + pos + " fin " + fin.y);
+                //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
             if (pos< fin.y && LM.boardManager.roundIsEnd())
             {
                 //Lllama al levelManager para un nuevo disparo
@@ -50,7 +50,6 @@ public class Spawner : MonoBehaviour {
                 posBola = LM.boardManager.GetPosBola();
                 Debug.Log(pos);
 
-                //el screentoworldpoint, te transforma las coordenadas del raton(1920x1080) a un punto de la escena
 
                 forceVector = new Vector2(fin.x - posBola, fin.y - pos);
 
@@ -74,11 +73,12 @@ public class Spawner : MonoBehaviour {
     IEnumerator instanceBalls(uint numBalls, Vector2 dir){
    ;
         float ballsize;//El tamaño de la bola, afecta en la creación debiudo a que si no spwanea en el propio collider de la deadzone
-        ballsize = balls.transform.localScale.y * 3.0f;
+        ballsize = balls.transform.localScale.y *3;
         for (int i = 0; i < numBalls; i++)
         {
             
-            GameObject aux = Instantiate(balls, new Vector3(posBola, pos + ballsize, 0), Quaternion.identity);
+            GameObject aux = Instantiate(balls, new Vector3(posBola, pos +ballsize, 0), Quaternion.identity);
+           // aux.transform.localScale = new Vector2(Screen.width/10000.0f, Screen.width / 10000.0f);
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
             LM.getBM().addBall(aux.GetComponent<BallLogic>());
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
