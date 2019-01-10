@@ -39,7 +39,7 @@ public class BoardManager : MonoBehaviour
         readMap = rd;
         gameManager = GameManager.getGM();
         LM = lm;
-
+       
        
     }
 

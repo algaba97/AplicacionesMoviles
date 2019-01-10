@@ -22,17 +22,18 @@ public class LevelManager : MonoBehaviour {
 
     private void Start() {
         gameManager = GameManager.getGM();
-        deadZone.Init(this);
+        deadZone.Init(this,ballsink);
         spawner.Init(this);
         ballsink.Init(this);
         boardManager.Init(gameManager.getTilesize(),readMap,this);
         readMap.Init(this);
-       
+        deadZone.FirstFakeBall();
     }
 
     public void NewShot()
     {
         puntosASumar = 10;
+        deadZone.DeleteFirstFakeBall();
         deadZone.ResetPosition();
     }
     public void bloqueRoto()
@@ -81,6 +82,7 @@ public class LevelManager : MonoBehaviour {
     }
     public void takeDownAllBalls()
     {
+        deadZone.FirstFakeBall();
         boardManager.takeDownAllBalls();
 
     }

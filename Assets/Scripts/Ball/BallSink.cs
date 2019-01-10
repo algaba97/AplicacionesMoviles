@@ -6,21 +6,24 @@ using UnityEngine.UI;
 public class BallSink : MonoBehaviour {
 
     float position;// posaicion x , la y siempre será igual
-    public Text label;
-   
+    public TextMesh label;
+    int contador;
     LevelManager LM;
     public void Init(LevelManager aux)
     {
         LM = aux;
+        position = 0.0f;
     }
  
-    void Hide()
+    public void Hide()
     {
         label.gameObject.SetActive(false);
     }
-    void Show()
+   public void Show(float positionx,float positiony)
     {
-        label.gameObject.SetActive(false);
+        contador = 1;
+        label.gameObject.SetActive(true);
+        label.gameObject.transform.position = new Vector3(positionx, positiony + 0.5f, label.gameObject.transform.position.z);
     }
     public void SetPosition(float pos)
     {
@@ -33,6 +36,8 @@ public class BallSink : MonoBehaviour {
     }
     public void llega(BallLogic ball)
     {
+        contador++;
+        label.text = ""+contador;
         LM.boardManager.Ball(ball.gameObject);
         Destroy(ball.gameObject);
     }
