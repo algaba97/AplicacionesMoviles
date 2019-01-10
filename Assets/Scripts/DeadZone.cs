@@ -14,7 +14,8 @@ public class DeadZone : MonoBehaviour {
         LM = aux;
         ballsink = _ballsink;
         //FirstFakeBall();
-        
+
+
     }
     public void FirstFakeBall()
     {
@@ -22,8 +23,8 @@ public class DeadZone : MonoBehaviour {
         {
             auxBall = Instantiate(Ball);
             auxBall.GetComponent<CircleCollider2D>().enabled = false;
-            Vector3 posicion = LM.ballsink.getPosition();
-            auxBall.transform.position = new Vector3(posicion.x, posicion.y + auxBall.transform.localScale.y *2, posicion.z);
+            Vector3 posicion = new Vector3(0, LM.GetPosition(), 0);
+            auxBall.transform.position = new Vector3(posicion.x, posicion.y + auxBall.transform.localScale.y /2, posicion.z);
         }
     }
     public void DeleteFirstFakeBall()

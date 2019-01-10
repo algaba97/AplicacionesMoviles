@@ -1212,7 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef60cb9ce79c32f4694259d09972d657, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Fuerza: 498
+  Fuerza: 300
   balls: {fileID: 1578783983247936, guid: fbd26360cb9924537813edcaadab3025, type: 3}
 --- !u!4 &939541600
 Transform:

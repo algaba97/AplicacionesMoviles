@@ -32,6 +32,7 @@ public class Spawner : MonoBehaviour {
     {
         LM = aux;
 
+
     }
     // Update is called once per frame
     void Update () {
@@ -39,6 +40,7 @@ public class Spawner : MonoBehaviour {
         Vector3 fin;
         if (Input.GetMouseButtonUp(0) )
         {
+
             //&& LM.boardManager.roundIsEnd()
             pos = LM.GetPosition();
             fin = Camera.main.ScreenToWorldPoint(new Vector3 (Input.mousePosition.x, Input.mousePosition.y,0));
@@ -46,6 +48,8 @@ public class Spawner : MonoBehaviour {
             if (pos< fin.y && LM.boardManager.roundIsEnd())
             {
                 //Lllama al levelManager para un nuevo disparo
+                balls.transform.localScale = new Vector3(gameManager.getTilesize(), gameManager.getTilesize(), gameManager.getTilesize());
+
                 LM.NewShot();
                 posBola = LM.boardManager.GetPosBola();
                 Debug.Log(pos);
@@ -71,20 +75,22 @@ public class Spawner : MonoBehaviour {
         StartCoroutine(instanceBalls(numballs,dir));
     }
     IEnumerator instanceBalls(uint numBalls, Vector2 dir){
-   ;
+        LM.canBoostGoDown = false;
         float ballsize;//El tamaño de la bola, afecta en la creación debiudo a que si no spwanea en el propio collider de la deadzone
-        ballsize = balls.transform.localScale.y *3;
+        ballsize = balls.transform.localScale.y /2;
+
         for (int i = 0; i < numBalls; i++)
         {
             
             GameObject aux = Instantiate(balls, new Vector3(posBola, pos +ballsize, 0), Quaternion.identity);
-           // aux.transform.localScale = new Vector2(Screen.width/10000.0f, Screen.width / 10000.0f);
+            // aux.transform.localScale = new Vector2(Screen.width/10000.0f, Screen.width / 10000.0f);
             aux.GetComponent<BallLogic>().setForce(forceVector.normalized * Fuerza);
             LM.getBM().addBall(aux.GetComponent<BallLogic>());
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
             yield return new WaitForFixedUpdate();// //TODO mas que un fixedUpdate
         }
+        LM.canBoostGoDown = true;
       
 
   

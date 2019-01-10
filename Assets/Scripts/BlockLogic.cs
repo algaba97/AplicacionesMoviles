@@ -59,7 +59,11 @@ public class BlockLogic : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-            Debug.Log("MasBolaspls");
+        {
+            LM.getBM().bolasAMeter++;
+            LM.getBM().numeroTiles--;
+            Destroy(gameObject);
+        }
     }
     public void setVida(int _v){
         GetComponent<Block>().setVida(_v);

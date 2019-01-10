@@ -17,6 +17,7 @@ public class BoardManager : MonoBehaviour
 
     GameObject Primera;//primera bola que cae
     public int nBolas = 50;
+    public int bolasAMeter = 0;
     int contador = 0;
     bool fBola = true;
     float iniX = 0.0f;
@@ -98,7 +99,6 @@ public class BoardManager : MonoBehaviour
 
         NextLevelMenu.gameObject.SetActive(false);
         LM.nuevoNivel();
-        GameManager.getGM().setLevel(GameManager.getGM().getLevel() + 1);
         readMap.NextLevel(GameManager.getGM().getLevel() );
         Primera.transform.position = new Vector2(0,Primera.transform.position.y);
 
@@ -137,6 +137,8 @@ public class BoardManager : MonoBehaviour
 
     public void NextRound(float ts)
     {
+        nBolas += bolasAMeter;
+        bolasAMeter = 0;
         tilesize = ts;
         //Primero calculamos la posición en la cual si toca el tile sería game over
         float posy = LM.GetPosition(); // la posicion del margeny

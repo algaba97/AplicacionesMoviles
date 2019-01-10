@@ -112,7 +112,7 @@ public class ReadMap : MonoBehaviour {
             for (int j = tam-1; j >= 0; j--)
             {
 
-                if (Mapa[i, j] != 0)
+                if ((Mapa[i, j] > 0 && Mapa[i,j]< 7 )|| Mapa[i,j] == 21)
                 {
 
                     Tile aux = Instantiate(bloque);
@@ -122,9 +122,13 @@ public class ReadMap : MonoBehaviour {
                         (j) * tilesize + (-width + tilesize / 2.0f) + margenX,
                                         (-(i - (filas - tam)) * tilesize) + (height - tilesize / 2.0f) - margenY - tilesize,
                                         0);
+
+                   
+                        aux.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bloques/game_img_block" + Mapa[i, j] + "_1");
                     
-                    aux.gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Bloques/game_img_block" + Mapa[i, j] + "_1");
                     aux.gameObject.AddComponent<PolygonCollider2D>();
+                    aux.gameObject.GetComponent<PolygonCollider2D>().isTrigger = Mapa[i, j] > 6;
+                    
                     if (Mapa2[i, j] != 0)
                     {
                         aux.gameObject.GetComponent<BlockLogic>().setVida(Mapa2[i, j]);

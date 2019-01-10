@@ -22,7 +22,6 @@ public class BallSink : MonoBehaviour {
    public void Show(float positionx,float positiony)
     {
         contador = 1;
-        label.gameObject.SetActive(true);
         label.gameObject.transform.position = new Vector3(positionx, positiony + 0.5f, label.gameObject.transform.position.z);
     }
     public void SetPosition(float pos)
@@ -38,6 +37,8 @@ public class BallSink : MonoBehaviour {
     {
         contador++;
         label.text = ""+contador;
+        label.gameObject.SetActive(true);
+
         LM.boardManager.Ball(ball.gameObject);
         Destroy(ball.gameObject);
     }

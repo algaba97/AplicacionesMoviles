@@ -30,13 +30,13 @@ public class GameManager : MonoBehaviour {
     {
         DM = aux;
         dataJuego = DM.getDatos();
-        levelSelected = dataJuego.levels;
+        levelSelected = dataJuego.niveles;
         Debug.Log("AAAAAAAAAAA");
 
     }
     public int getLeveldatos(int level)
     {
-        return dataJuego.level[level];
+        return dataJuego.estrellas[level];
     }
    
 
@@ -66,10 +66,14 @@ public class GameManager : MonoBehaviour {
     {
         GM = gm;
     }
+    public void setLevelRate( int stars)
+    {
+        DM.addLevelData(levelSelected, stars);
+        levelSelected++ ;
+    }
     public void setLevel(int l)
     {
         levelSelected = l;
-        DM.addLevelData(l, 3);
     }
     public int getLevel()
     {

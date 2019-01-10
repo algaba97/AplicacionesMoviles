@@ -10,8 +10,8 @@ public class DataJuego
 {
     public int rubies;
     public int extratiros;
-    public List< int> level;
-    public int levels;
+    public List< int> estrellas;
+    public int niveles;
 }
 
 public class DataManager : MonoBehaviour
@@ -42,19 +42,18 @@ public class DataManager : MonoBehaviour
     public void ReadData()
     {
         //PlayerPrefs.DeleteKey("datos");
-        Debug.Log(Application.dataPath);
 
-        //if(PlayerPrefs.HasKey("datos"))
-        //{
-        string filePath = Application.dataPath + "/Resources/Mapas/data";
-        if (File.Exists(filePath)) {
-            string dataAsJson = File.ReadAllText(filePath);
+        if(PlayerPrefs.HasKey("DATA"))
+        {
+        //string filePath = Application.dataPath + "/Resources/Mapas/data";
+        //if (File.Exists(filePath)) {
+            //string dataAsJson = File.ReadAllText(filePath);
 
-            //string dataAsJson = PlayerPrefs.GetString("datos");
-            byte[] data = Convert.FromBase64String(dataAsJson);
-            string result = System.Text.Encoding.UTF8.GetString(data);
+            string dataAsJson = PlayerPrefs.GetString("DATA");
+            //byte[] data = Convert.FromBase64String(dataAsJson);
+            //string result = System.Text.Encoding.UTF8.GetString(data);
            
-            datos = JsonUtility.FromJson<DataJuego>(result);
+            datos = JsonUtility.FromJson<DataJuego>(dataAsJson);
 
         }
         else
@@ -62,9 +61,9 @@ public class DataManager : MonoBehaviour
             datos = new DataJuego();
             datos.rubies = 50;
             datos.extratiros = 0;
-            datos.level = new List<int>(3000);
-            datos.level.Add(1);
-            datos.levels = datos.level.Count;
+            datos.estrellas = new List<int>(3000);
+            datos.estrellas.Add(1);
+            datos.niveles = datos.estrellas.Count;
             SaveData();
 
         }
@@ -73,15 +72,15 @@ public class DataManager : MonoBehaviour
     {
         //Log string to console window
         var json = JsonUtility.ToJson(datos);
-        string filePath = Application.dataPath + "/Resources/Mapas/data";
+        //string filePath = Application.dataPath + "/Resources/Mapas/data";
 
         // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
-        byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
-        string data = Convert.ToBase64String(json2);
-        File.WriteAllText(filePath, data);
+        //byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
+        //string data = Convert.ToBase64String(json2);
+        //File.WriteAllText(filePath, json);
 
-        //PlayerPrefs.SetString("datos", data);
-        //PlayerPrefs.Save();
+        PlayerPrefs.SetString("DATA", json);
+        PlayerPrefs.Save();
    
 
     }
@@ -97,18 +96,17 @@ public class DataManager : MonoBehaviour
 
     public void addLevelData(int level, int stars)
     {
-     if( datos.levels-1 >= level)
+     
+       
+            datos.estrellas[level-1] = stars;
+        if (datos.niveles == level)
         {
-            
-            datos.level[level-1] = stars;
+            datos.estrellas.Add(0);
+            datos.niveles++;
         }
-     else
-        {
-            datos.level.Add(stars);
-            datos.levels++;
             SaveData();
             
-        }
+    
     }
 
    
