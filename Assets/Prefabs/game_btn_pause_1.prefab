@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 212711965179826320}
   - component: {fileID: 50310228177249804}
   - component: {fileID: 114729342521420146}
-  - component: {fileID: 114645827331998306}
+  - component: {fileID: 4369448665993731611}
   m_Layer: 0
   m_Name: game_btn_pause_1
   m_TagString: Cubos
@@ -119,7 +119,7 @@ MonoBehaviour:
   particles: {fileID: 901342321580915430, guid: b5346d0f895ebb248bc855b4921efb01,
     type: 3}
   position: {x: 0, y: 0}
---- !u!114 &114645827331998306
+--- !u!114 &4369448665993731611
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -5,9 +5,10 @@ using UnityEngine.UI;
 
 public class BallSink : MonoBehaviour {
 
-    float position;// posaicion x , la y siempre será igual
+    float position;// posicion x , la y siempre será igual
     public TextMesh label;
     int contador;
+    int contadorPelExtra;
     LevelManager LM;
     public void Init(LevelManager aux)
     {
@@ -17,6 +18,7 @@ public class BallSink : MonoBehaviour {
  
     public void Hide()
     {
+        contadorPelExtra = 0;
         label.gameObject.SetActive(false);
     }
    public void Show(float positionx,float positiony)
@@ -36,7 +38,7 @@ public class BallSink : MonoBehaviour {
     public void llega(BallLogic ball)
     {
         contador++;
-        label.text = ""+contador;
+        label.text = ""+(int)(contador+contadorPelExtra);
         label.gameObject.SetActive(true);
 
         LM.boardManager.Ball(ball.gameObject);
@@ -44,6 +46,11 @@ public class BallSink : MonoBehaviour {
     }
     public void sumaCont()
     {
-        contador++;
+
+        contadorPelExtra++;
+    }
+    public void setText(int balls)
+    {
+        label.text = "" + balls;
     }
 }

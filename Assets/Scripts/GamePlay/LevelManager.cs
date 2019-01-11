@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour {
     int puntosASumar = 10;
     public Text PUbomba;
     public Text PUhierro;
+    public Text PUterremoto;
     public  bool canBoostGoDown = true;
 
     float position; // posicion de spawn de bolas y deadzone
@@ -122,6 +123,7 @@ public class LevelManager : MonoBehaviour {
     {
         PUhierro.text = "x" + GameManager.getGM().getPowerUp("Hierro").ToString();
         PUbomba.text = "x" + GameManager.getGM().getPowerUp("Bomba").ToString();
+        PUterremoto.text = "x" + GameManager.getGM().getPowerUp("Terremoto").ToString();
 
     }
 }

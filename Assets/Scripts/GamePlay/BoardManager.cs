@@ -14,8 +14,8 @@ public class BoardManager : MonoBehaviour
     ReadMap readMap;
     GameManager gameManager;
     LevelManager LM;
-
-    public int nBolas = 50;
+    int bolasNivel = 50;
+    public int nBolas;
     public int bolasAMeter = 0;
     int contador = 0;
     bool fBola = true;
@@ -34,6 +34,7 @@ public class BoardManager : MonoBehaviour
     void Start()
     {
         EnableShoot = true;
+        nBolas = bolasNivel;
     }
    
     public void SetDanger(GameObject aux)
@@ -51,13 +52,12 @@ public class BoardManager : MonoBehaviour
         Board = new List<Tile>();
         pelotas = new List<BallLogic>();
         tilesize = ts;
-        Debug.Log(tilesize);
         numeroTiles = 0;
         readMap = rd;
         gameManager = GameManager.getGM();
         LM = lm;
-       
-       
+      
+
     }
 
 
@@ -99,7 +99,6 @@ public class BoardManager : MonoBehaviour
 
 
             gameManager.setState(0);
-            Debug.Log("SIguiente nivelo loko");
         }
         else
         {
@@ -122,7 +121,9 @@ public class BoardManager : MonoBehaviour
     }
     public void NextLevel(bool over)//SI OVER == TRUE, GAMEOVER
     {
-
+        LM.ballsink.setText(bolasNivel);
+        LM.ballsink.Show(0, LM.deadZone.resetAuxBall()); //resetea la pelota fake y el texto;
+           
         if (over)
         {
             gameOverMenu.gameObject.SetActive(false);
@@ -137,7 +138,6 @@ public class BoardManager : MonoBehaviour
         readMap.NextLevel(gameManager.getLevel() );
         gameManager.setState(1);
         EnableShoot = true;
-        Debug.Log("Cargando nuevo mapa");
     }
     void limpiarTablero()
     {
@@ -258,6 +258,29 @@ public class BoardManager : MonoBehaviour
         }
 
     }
+    public void PowerUpTerremoto() // quita vida random a todos los bloques
+    {
+        if (GameManager.getGM().addPowerUp("Terremoto", -1))
+        {
+            System.Random rnd = new System.Random();
+            for (int i = 0; i < Board.Count; i++)
+            {
+                if (Board[i] != null && Board[i].GetComponent<BlockLogic>().canDestroy() && Board[i].getVida() > 0)
+                {
+                    Board[i].setVida(Board[i].getVida() - rnd.Next(5, 15));
+
+                    if (Board[i].getVida() <= 0)
+                    {
+                        Board[i].gameObject.SetActive(false);
+
+                    }
+                    else
+                        Board[i].GetComponent<BlockLogic>().actualizaTexto();
+                }
+            }
+            UpdateTiles();
+        }
+    }
     public float GetPosBola()
     {
         
@@ -308,6 +331,7 @@ public class BoardManager : MonoBehaviour
                 pelotas[i] = null;
             }
         }
+        nBolas = bolasNivel;
     }
     void TogglePanels()
     {

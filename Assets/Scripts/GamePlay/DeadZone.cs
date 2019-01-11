@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class DeadZone : MonoBehaviour {
     LevelManager LM;
     GameObject auxBall;
@@ -44,7 +45,7 @@ public class DeadZone : MonoBehaviour {
         FirstFakeBall();
         if (first)
         {
-            Debug.Log("---------------");
+
             first = false;
             ballsink.Show(auxBall.transform.position.x, auxBall.transform.position.y);
         }
@@ -77,5 +78,12 @@ public class DeadZone : MonoBehaviour {
     public GameObject getAuxBall()
     {
         return auxBall;
+    }
+    public float resetAuxBall()
+    {
+       
+            auxBall.transform.position = new Vector3(0, auxBall.transform.position.y);
+            return auxBall.transform.position.y;
+     
     }
 }

@@ -120,6 +120,10 @@ public class GameManager : MonoBehaviour {
         {
             b = DM.sumaPUbomba(number);
         }
+        else if (name ==  "Terremoto")
+        {
+            b = DM.sumaPUTerremoto(number);
+        }
         else Debug.Log("NO SE ENCUENTRA POWER UP " + name);
         msgListener.SendMessage("updatePowerUpsText");
         return b;
@@ -138,6 +142,10 @@ public class GameManager : MonoBehaviour {
        else if (name == "Bomba")
         {
             a = DM.getDatos().puBomba;
+        }
+        else if (name == "Terremoto")
+        {
+            a = DM.getDatos().puTerremoto;
         }
         else Debug.Log("NO SE ENCUENTRA POWER UP " + name);
         return a;

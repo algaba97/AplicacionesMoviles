@@ -51,9 +51,8 @@ public class BlockLogic : MonoBehaviour {
                 this.gameObject.SetActive(false);
                
             }
-            
-            texto.text = GetComponent<Block>().getVida().ToString();
 
+            actualizaTexto();
         }
 
     }
@@ -69,5 +68,10 @@ public class BlockLogic : MonoBehaviour {
     }
     public void setVida(int _v){
         GetComponent<Block>().setVida(_v);
+    }
+    public void actualizaTexto()
+    {
+        texto.text = GetComponent<Block>().getVida().ToString();
+
     }
 }

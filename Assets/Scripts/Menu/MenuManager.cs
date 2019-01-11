@@ -9,6 +9,7 @@ public class MenuManager : MonoBehaviour
     public Text stars;
     public Text PUbomba;
     public Text PUhierro;
+    public Text PUterremoto;
     public Slider volume;
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,7 @@ public class MenuManager : MonoBehaviour
     {
         PUhierro.text = "x" + GameManager.getGM().getPowerUp("Hierro").ToString();
         PUbomba.text = "x" + GameManager.getGM().getPowerUp("Bomba").ToString();
+        PUterremoto.text = "x" + GameManager.getGM().getPowerUp("Terremoto").ToString();
 
     }
     public void buyPUHierro()
@@ -51,6 +53,11 @@ public class MenuManager : MonoBehaviour
         if(GameManager.getGM().addRubies(-100))
         GameManager.getGM().addPowerUp("Bomba", 1);
 
+    }
+    public void buyPUTerremoto()
+    {
+        if (GameManager.getGM().addRubies(-100))
+            GameManager.getGM().addPowerUp("Terremoto", 1);
     }
     public void setVolume()
     {

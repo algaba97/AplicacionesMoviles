@@ -13,6 +13,7 @@ public class DataJuego
     public int rubies;
     public int puBomba;
     public int puHierro;
+    public int puTerremoto;
     public List< int> estrellas;
     public int niveles;
 }
@@ -25,13 +26,7 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
-        //para borrar los datos
-        //PlayerPrefs.DeleteKey("DATA");
-        //PlayerPrefs.Save();
-        //while (true)
-        //{
-            
-        //}
+       
         if (DM == null)
         {
             DM = this;
@@ -55,14 +50,11 @@ public class DataManager : MonoBehaviour
 
         if(PlayerPrefs.HasKey("DATA"))
         {
-        //string filePath = Application.dataPath + "/Resources/Mapas/data";
-        //if (File.Exists(filePath)) {
-            //string dataAsJson = File.ReadAllText(filePath);
+
 
             string dataAsJson = PlayerPrefs.GetString("DATA");
-            //byte[] data = Convert.FromBase64String(dataAsJson);
-            //string result = System.Text.Encoding.UTF8.GetString(data);
-            Debug.Log(dataAsJson);
+            
+           // Debug.Log(dataAsJson);
             datos = JsonUtility.FromJson<DataJuego>(Decrypt(dataAsJson));
 
         }
@@ -81,14 +73,8 @@ public class DataManager : MonoBehaviour
     }
     public void SaveData()
     {
-        //Log string to console window
         var json = JsonUtility.ToJson(datos);
-        //string filePath = Application.dataPath + "/Resources/Mapas/data";
-
-        // TextAsset text = (TextAsset)Resources.Load("/Scenes/data.json", typeof(TextAsset));
-        //byte[] json2 = System.Text.Encoding.UTF8.GetBytes(json);
-        //string data = Convert.ToBase64String(json2);
-        //File.WriteAllText(filePath, json);
+       
 
         PlayerPrefs.SetString("DATA", Encrypt(json));
         PlayerPrefs.Save();
@@ -123,6 +109,16 @@ public class DataManager : MonoBehaviour
         if (datos.puHierro + value >= 0)
         {
             datos.puHierro += value;
+            SaveData();
+            return true;
+        }
+        else return false;
+    }
+    public bool sumaPUTerremoto(int value)
+    {
+        if (datos.puTerremoto + value >= 0)
+        {
+            datos.puTerremoto += value;
             SaveData();
             return true;
         }
