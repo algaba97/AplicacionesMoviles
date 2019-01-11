@@ -73,6 +73,8 @@ public class LevelManager : MonoBehaviour {
         {
             st.enabled = false;
         }
+
+       
        
     }
 
@@ -100,7 +102,7 @@ public class LevelManager : MonoBehaviour {
     {
         if (canBoostGoDown)
         {
-            deadZone.FirstFakeBall();
+            deadZone.FalsaPrimera();
             boardManager.takeDownAllBalls();
         }
     }

@@ -32,6 +32,7 @@ public class BoardManager : MonoBehaviour
     {
         EnableShoot = true;
     }
+   
 
     public void Init(float ts, ReadMap rd,LevelManager lm)
     {
@@ -79,6 +80,7 @@ public class BoardManager : MonoBehaviour
         {
             EnableShoot = false;
             NextLevelMenu.gameObject.SetActive(true);
+            gameManager.setState(0);
             Debug.Log("SIguiente nivelo loko");
         }
         else
@@ -98,19 +100,19 @@ public class BoardManager : MonoBehaviour
     }
     public void NextLevel()
     {
-        EnableShoot = true;
+       
 
         NextLevelMenu.gameObject.SetActive(false);
         LM.nuevoNivel();
-        readMap.NextLevel(GameManager.getGM().getLevel() );
-        Primera.transform.position = new Vector2(0,Primera.transform.position.y);
-
+        readMap.NextLevel(gameManager.getLevel() );
+        gameManager.setState(1);
+        EnableShoot = true;
         Debug.Log("Cargando nuevo mapa");
     }
 
     public bool Ball(GameObject aux)// para llevar el conteo de bolas y ver si es la primera para guardar la x
     {
-        Debug.Log("he llehao");
+
         contador++;
         pelotas.Remove(aux.GetComponent<BallLogic>());
 

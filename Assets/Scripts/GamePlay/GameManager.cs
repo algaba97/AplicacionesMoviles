@@ -13,6 +13,27 @@ public class GameManager : MonoBehaviour {
     
     float tsize = 0.0f;
     GameObject rubiesListener;
+    int state;// 0:Menú, 1:Juego
+    int stateaux;// Guardamos el estado para hacerlo en el lateUpdate
+    /// <summary>
+    /// 0= Menu 1 = Juego
+    /// </summary>
+    /// <param name="aux"></param>
+    public void setState(int aux)
+    {
+        stateaux = aux;
+    }
+    public int getState()
+    {
+        return state;
+    }
+
+    void LateUpdate()
+    {
+        state = stateaux;
+    }
+ 
+
     public void SetTSize(float aux)
     {
         tsize = aux;
@@ -45,6 +66,7 @@ public class GameManager : MonoBehaviour {
             DontDestroyOnLoad(this);
         }
         else Destroy(this.gameObject);
+        state = 0;
 	}
 	
 	// Update is called once per frame

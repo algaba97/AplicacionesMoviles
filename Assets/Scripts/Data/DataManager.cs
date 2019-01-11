@@ -4,6 +4,8 @@ using UnityEngine;
 using System.IO;
 
 using System;
+using System.Text;
+using System.Security.Cryptography;
 
 [Serializable]
 public class DataJuego
@@ -23,6 +25,13 @@ public class DataManager : MonoBehaviour
 
     void Awake()
     {
+        //para borrar los datos
+        //PlayerPrefs.DeleteKey("DATA");
+        //PlayerPrefs.Save();
+        //while (true)
+        //{
+            
+        //}
         if (DM == null)
         {
             DM = this;
@@ -53,8 +62,8 @@ public class DataManager : MonoBehaviour
             string dataAsJson = PlayerPrefs.GetString("DATA");
             //byte[] data = Convert.FromBase64String(dataAsJson);
             //string result = System.Text.Encoding.UTF8.GetString(data);
-           
-            datos = JsonUtility.FromJson<DataJuego>(dataAsJson);
+            Debug.Log(dataAsJson);
+            datos = JsonUtility.FromJson<DataJuego>(Decrypt(dataAsJson));
 
         }
         else
@@ -81,7 +90,7 @@ public class DataManager : MonoBehaviour
         //string data = Convert.ToBase64String(json2);
         //File.WriteAllText(filePath, json);
 
-        PlayerPrefs.SetString("DATA", json);
+        PlayerPrefs.SetString("DATA", Encrypt(json));
         PlayerPrefs.Save();
    
 
@@ -130,5 +139,39 @@ public class DataManager : MonoBehaviour
     
     }
 
-   
+    private string hash ="4312@!";
+    
+    //Encrypt
+    public string Encrypt(string data)
+    {
+      
+        byte[] datos = UTF8Encoding.UTF8.GetBytes(data);
+        using(MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+        {
+            byte[] key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            using (TripleDESCryptoServiceProvider trip = new TripleDESCryptoServiceProvider() { Key = key, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+            {
+                ICryptoTransform tr = trip.CreateEncryptor();
+                byte[] results = tr.TransformFinalBlock(datos, 0, datos.Length);
+                return Convert.ToBase64String(results,0,results.Length);
+            } 
+        }
+    }
+
+    public string Decrypt(string data)
+    {
+
+        byte[] datos = Convert.FromBase64String(data);
+        using (MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider())
+        {
+            byte[] key = md5.ComputeHash(UTF8Encoding.UTF8.GetBytes(hash));
+            using (TripleDESCryptoServiceProvider trip = new TripleDESCryptoServiceProvider() { Key = key, Mode = CipherMode.ECB, Padding = PaddingMode.PKCS7 })
+            {
+                ICryptoTransform tr = trip.CreateDecryptor();
+                byte[] results = tr.TransformFinalBlock(datos, 0, datos.Length);
+                return UTF8Encoding.UTF8.GetString(results);
+            }
+        }
+    }
+
 }
