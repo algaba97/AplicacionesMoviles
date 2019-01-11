@@ -20,6 +20,7 @@ public class BlockLogic : MonoBehaviour {
         LM = aux;
         position = new Vector2(j,i);
     }
+
     public int getY()
     {
         position.y += 1.0f;

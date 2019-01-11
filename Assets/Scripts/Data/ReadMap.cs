@@ -13,6 +13,7 @@ public class ReadMap : MonoBehaviour {
     public int tam = 11;
     int filas;
     public Tile bloque;
+    public SpriteRenderer Danger;
     public GameObject Pared;
     GameManager gamemanager;
     LevelManager LM;
@@ -145,6 +146,20 @@ public class ReadMap : MonoBehaviour {
             }
 
         }
+        //creamos la linea de readMap
+        GameObject Linea = new GameObject();
+        for (int i = 0; i < tam; i++)
+        {
+            SpriteRenderer danger = Instantiate(Danger);
+            danger.gameObject.transform.localScale = new Vector3(tilesize, tilesize,-10.0f);
+            danger.gameObject.transform.position = new Vector3(
+                       (i) * tilesize + (-width + tilesize / 2.0f) + margenX,
+                                       (-(12 - (filas - tam)) * tilesize) + (height - tilesize / 2.0f) - margenY - tilesize,
+                                       0);
+            danger.gameObject.transform.parent = Linea.transform;
+        }
+        LM.boardManager.SetDanger(Linea);
+
     }
     
 

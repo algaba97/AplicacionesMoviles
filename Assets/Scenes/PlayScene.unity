@@ -2859,6 +2859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tam: 11
   bloque: {fileID: 114645827331998306, guid: 921afbde7d7acc942a96b33366b69b06, type: 3}
+  Danger: {fileID: 2568275795452240007, guid: 6c73463c95b259542acd205e66822008, type: 3}
   Pared: {fileID: 1583983584845216, guid: 1422bea23ff54014bb5cda02df8db800, type: 3}
   cam: {fileID: 519420031}
 --- !u!4 &1791691029

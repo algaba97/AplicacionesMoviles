@@ -27,12 +27,24 @@ public class BoardManager : MonoBehaviour
     public RectTransform panelJuego;
     public RectTransform panelPU;
 
+    //linea de danger
+    GameObject danger;
+
     void Start()
     {
         EnableShoot = true;
     }
    
-
+    public void SetDanger(GameObject aux)
+    {
+        danger = aux;
+        SetActivateDanger(false);
+    }
+    
+    public void SetActivateDanger(bool aux)
+    {
+        danger.SetActive(aux);
+    }
     public void Init(float ts, ReadMap rd,LevelManager lm)
     {
         Board = new List<Tile>();
@@ -144,7 +156,7 @@ public class BoardManager : MonoBehaviour
         bolasAMeter = 0;
         tilesize = ts;
         //Primero calculamos la posición en la cual si toca el tile sería game over
-
+        bool lineDanger = false;
         foreach (Tile tile in Board)
         {
             if (tile != null && tile.CanFall())
@@ -153,14 +165,17 @@ public class BoardManager : MonoBehaviour
                 tile.gameObject.transform.position = new Vector3(tile.gameObject.transform.position.x, 
                     tile.gameObject.transform.position.y - tilesize,
                     tile.gameObject.transform.position.z);
-                if (tile.gameObject.GetComponent<BlockLogic>().getY() == 0) tile.gameObject.SetActive(true);// miramos si está en la posición 0 para estar activado
+                int   y = tile.gameObject.GetComponent<BlockLogic>().getY();
+                if (y == 0) tile.gameObject.SetActive(true);// miramos si está en la posición 0 para estar activado
+                else if (y == 11) lineDanger = true;
+
                 if (tile.gameObject.GetComponent<BlockLogic>().gameOver()) // la altura del tile mas la mitad de la altura del tile, el 0.01 es por si pierde pixeles unity.
-                
                 {
                     GameOver();
                 }
             }
         }
+        SetActivateDanger(lineDanger);
         TogglePanels();
         GetComponent<PUHierro>().removePowerUp();
     }
@@ -226,6 +241,7 @@ public class BoardManager : MonoBehaviour
             Time.timeScale = 1;
             TogglePanels();
         }
+        SetActivateDanger(false);
         EnableShoot = false;
         return aux;
     }

@@ -118,6 +118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles: {fileID: 901342321580915430, guid: b5346d0f895ebb248bc855b4921efb01,
     type: 3}
+  position: {x: 0, y: 0}
 --- !u!114 &114645827331998306
 MonoBehaviour:
   m_ObjectHideFlags: 0
