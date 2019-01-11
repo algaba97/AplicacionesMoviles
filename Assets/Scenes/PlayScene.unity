@@ -2663,7 +2663,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1873459920}
   m_HandleRect: {fileID: 0}
@@ -3614,7 +3614,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ac1d72fe4edd04d4bb53c3e0f0d4a0d7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63f5f736570d50443bd2631a36254cb7, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

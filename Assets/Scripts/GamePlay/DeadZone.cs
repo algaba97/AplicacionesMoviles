@@ -37,6 +37,18 @@ public class DeadZone : MonoBehaviour {
         Destroy(auxBall);
         ballsink.Hide();
     }
+    
+    //simulamos que ha llegado una pelota a la posicion de spawn anterior en caso de no haber llegado la primera (first)
+    public void FalsaPrimera()
+    {
+        FirstFakeBall();
+        if (first)
+        {
+            Debug.Log("---------------");
+            first = false;
+            ballsink.Show(auxBall.transform.position.x, auxBall.transform.position.y);
+        }
+    }
     //void OnTriggerEnter2D(Collider2D collision)
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -48,9 +60,12 @@ public class DeadZone : MonoBehaviour {
             if (first)
             {
                 first = false;
-                LM.ballsink.SetPosition(ball.gameObject.transform.position.x);
-                auxBall = ball.gameObject;
+                
+                    LM.ballsink.SetPosition(ball.gameObject.transform.position.x);
+                    auxBall = ball.gameObject;
+                
                 LM.boardManager.Ball(ball.gameObject);
+             
                 ballsink.Show(ball.transform.position.x, ball.transform.position.y);
             }
             
@@ -58,5 +73,9 @@ public class DeadZone : MonoBehaviour {
             ball.Stop();
         }
 
+    }
+    public GameObject getAuxBall()
+    {
+        return auxBall;
     }
 }

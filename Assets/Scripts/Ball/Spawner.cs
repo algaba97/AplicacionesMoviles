@@ -35,7 +35,7 @@ public class Spawner : MonoBehaviour {
     void Update () {
 
         Vector3 fin;
-        if (Input.GetMouseButtonUp(0) )
+        if (gameManager.getState() == 1 && Input.GetMouseButtonUp(0) )
         {
 
             //&& LM.boardManager.roundIsEnd()
