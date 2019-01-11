@@ -66,10 +66,11 @@ public class LevelManager : MonoBehaviour {
             estrellasConseguidas = 3;
         }
     }
-    public void nuevoNivel()
+    public void nuevoNivel(bool mismo)
     {
         puntos = 0;
         puntos_bar.value = puntos;
+        if(!mismo)
         gameManager.setLevelRate(estrellasConseguidas);
         estrellasConseguidas = 0;
         foreach (Image st in estrellas)
@@ -80,7 +81,7 @@ public class LevelManager : MonoBehaviour {
        
        
     }
-
+   
     public void llega(BallLogic bl)
     {
         Debug.Log("Holaaa");

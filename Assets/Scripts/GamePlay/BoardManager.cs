@@ -24,6 +24,7 @@ public class BoardManager : MonoBehaviour
     bool EnableShoot;// Variable que controla si puedes disparar o no
 
     public Image NextLevelMenu;
+    public Image gameOverMenu;
     public RectTransform panelJuego;
     public RectTransform panelPU;
 
@@ -61,10 +62,12 @@ public class BoardManager : MonoBehaviour
 
 
     //Añadimos un tile al array e incrementamos el contador
-    public void addTile( Tile _tile)
+    public void addTile( Tile _tile, bool sumar)
     {
         Board.Add( _tile);
+        if (sumar)
         numeroTiles++;
+        
     }
     //miramos cuantos tiles estan desactivados y los sacamos del array y decrementamos el contador
     public void UpdateTiles()
@@ -91,6 +94,10 @@ public class BoardManager : MonoBehaviour
         {
             EnableShoot = false;
             NextLevelMenu.gameObject.SetActive(true);
+            limpiarTablero();
+            cleanBalls();
+
+
             gameManager.setState(0);
             Debug.Log("SIguiente nivelo loko");
         }
@@ -104,23 +111,46 @@ public class BoardManager : MonoBehaviour
 
     void GameOver()
     {
-        Debug.Log("GameOver");
-      
-           
+
+        gameOverMenu.gameObject.SetActive(true);
+        limpiarTablero();
+        cleanBalls();
+        gameManager.setState(0);
+
+
 
     }
-    public void NextLevel()
+    public void NextLevel(bool over)//SI OVER == TRUE, GAMEOVER
     {
-       
 
-        NextLevelMenu.gameObject.SetActive(false);
-        LM.nuevoNivel();
+        if (over)
+        {
+            gameOverMenu.gameObject.SetActive(false);
+
+
+        }
+        else
+        {
+            NextLevelMenu.gameObject.SetActive(false);
+        }
+        LM.nuevoNivel(over);
         readMap.NextLevel(gameManager.getLevel() );
         gameManager.setState(1);
         EnableShoot = true;
         Debug.Log("Cargando nuevo mapa");
     }
-
+    void limpiarTablero()
+    {
+        for (int i = 0; i < Board.Count; i++)
+        {
+            if (Board[i] != null)
+            {
+                Destroy(Board[i].gameObject);
+                Board[i] = null;
+            }
+        }
+        numeroTiles = 0;
+    }
     public bool Ball(GameObject aux)// para llevar el conteo de bolas y ver si es la primera para guardar la x
     {
 
@@ -169,7 +199,7 @@ public class BoardManager : MonoBehaviour
                 if (y == 0) tile.gameObject.SetActive(true);// miramos si está en la posición 0 para estar activado
                 else if (y == 11) lineDanger = true;
 
-                if (tile.gameObject.GetComponent<BlockLogic>().gameOver()) // la altura del tile mas la mitad de la altura del tile, el 0.01 es por si pierde pixeles unity.
+                if (tile.gameObject.GetComponent<BlockLogic>().gameOver()) 
                 {
                     GameOver();
                 }
@@ -185,28 +215,21 @@ public class BoardManager : MonoBehaviour
     /// </summary>
     public void PowerUpDestroyLast()
     {
-        float auxy = -1.0f; // nos obliga  ainicializar con cualquier valor
-        bool encontrado = false;
-        for (int i = 0; i < Board.Count; i++)
+        if (GameManager.getGM().addPowerUp("Bomba", -1))
         {
-            if (Board[i] != null)
+
+            float auxy = -1.0f; // nos obliga  ainicializar con cualquier valor
+            bool encontrado = false;
+            for (int i = 0; i < Board.Count; i++)
             {
-
-
-                if (!encontrado)
-                {
-                    encontrado = true;
-                    auxy = Board[i].gameObject.GetComponent<BlockLogic>().position.y;
-                    Destroy(Board[i].gameObject);
-                    Board[i] = null;
-
-                    numeroTiles--;
-                }
-                else
+                if (Board[i] != null)
                 {
 
-                    if (Board[i].gameObject.GetComponent<BlockLogic>().position.y == auxy)
+
+                    if (!encontrado)
                     {
+                        encontrado = true;
+                        auxy = Board[i].gameObject.GetComponent<BlockLogic>().position.y;
                         Destroy(Board[i].gameObject);
                         Board[i] = null;
 
@@ -214,15 +237,25 @@ public class BoardManager : MonoBehaviour
                     }
                     else
                     {
-                        return;
 
+                        if (Board[i].gameObject.GetComponent<BlockLogic>().position.y == auxy)
+                        {
+                            Destroy(Board[i].gameObject);
+                            Board[i] = null;
+
+                            numeroTiles--;
+                        }
+                        else
+                        {
+                            return;
+
+                        }
                     }
+
                 }
-
             }
+            UpdateTiles();
         }
-        UpdateTiles();
-
 
     }
     public float GetPosBola()
@@ -264,6 +297,17 @@ public class BoardManager : MonoBehaviour
             pel.MoveTo(LM.ballsink.getPosition(),10, true,LM.ballsink.llega);
 
            }
+    }
+    public void cleanBalls()
+    {
+        for (int i = 0; i < pelotas.Count; i++)
+        {
+            if (pelotas[i] != null)
+            {
+                Destroy(pelotas[i].gameObject);
+                pelotas[i] = null;
+            }
+        }
     }
     void TogglePanels()
     {

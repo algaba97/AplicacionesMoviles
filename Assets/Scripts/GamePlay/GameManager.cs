@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 
     
     float tsize = 0.0f;
+    float volumen = 0.3f;
     GameObject msgListener;
     int state;// 0:Menú, 1:Juego
     int stateaux;// Guardamos el estado para hacerlo en el lateUpdate
@@ -153,5 +154,13 @@ public class GameManager : MonoBehaviour {
     public void setRubiesListener(GameObject l)
     {
         msgListener = l;
+    }
+    public void setVolumen(float v)
+    {
+        volumen = v;
+    }
+    public float getVolumen()
+    {
+        return volumen;
     }
 }

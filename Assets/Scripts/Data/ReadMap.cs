@@ -140,7 +140,9 @@ public class ReadMap : MonoBehaviour {
                         aux.gameObject.SetActive(false);
                     }
                     if(Mapa[i,j] < 7)
-                    LM.getBM().addTile(aux); 
+                    LM.getBM().addTile(aux,true);
+                    else 
+                    LM.getBM().addTile(aux,false);
 
                 }
             }
@@ -152,10 +154,13 @@ public class ReadMap : MonoBehaviour {
         {
             SpriteRenderer danger = Instantiate(Danger);
             danger.gameObject.transform.localScale = new Vector3(tilesize, tilesize,-10.0f);
-            danger.gameObject.transform.position = new Vector3(
-                       (i) * tilesize + (-width + tilesize / 2.0f) + margenX,
-                                       (-(12 - (filas - tam)) * tilesize) + (height - tilesize / 2.0f) - margenY - tilesize,
+            danger.gameObject.transform.position = new Vector3((i-6) * tilesize, -6*tilesize,
                                        0);
+
+            //danger.gameObject.transform.position = new Vector3(
+            //           (i) * tilesize + (-width + tilesize / 2.0f) + margenX,
+            //                           (-(12 - (filas - tam)) * tilesize) + (height - tilesize / 2.0f) - margenY - tilesize,
+            //                           0);
             danger.gameObject.transform.parent = Linea.transform;
         }
         LM.boardManager.SetDanger(Linea);
@@ -167,8 +172,6 @@ public class ReadMap : MonoBehaviour {
     void ReadFile(int number)
     {
         TextAsset text = (TextAsset) Resources.Load("Mapas/mapdata"+ number, typeof(TextAsset));
-        //  string path = "Assets/Mapas/mapdata" + number +".txt";
-        // string path = "Assets/Mapas/test.txt";
         string[] path = text.text.Split('\n');
         string mapa = "";
 
@@ -207,7 +210,6 @@ public class ReadMap : MonoBehaviour {
                         }
                 catch
                 {
-                    Debug.Log("Error " +mapa2[i * tam + j]);
                 }
 
             }
@@ -223,7 +225,6 @@ public class ReadMap : MonoBehaviour {
          mapa2 = mapa.Split(',');
         for (int i = 0; i < filas; i++)
         {
-           // Mapa2[i, j] = (int)Char.GetNumericValue(mapa2[tam * tam - 1 + i * tam + j][0]);
             for (int j = 0; j < tam; j++)
             {
                
@@ -241,7 +242,6 @@ public class ReadMap : MonoBehaviour {
                 }
                 catch
                 {
-                    Debug.Log("Error " + mapa2[ i * tam + j]);
                 }
             }
         }

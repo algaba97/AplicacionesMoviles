@@ -49,7 +49,6 @@ public class Spawner : MonoBehaviour {
 
                 LM.NewShot();
                 posBola = LM.boardManager.GetPosBola();
-                Debug.Log(pos);
 
 
                 forceVector = new Vector2(fin.x - posBola, fin.y - pos);

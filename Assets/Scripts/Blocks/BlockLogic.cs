@@ -62,6 +62,7 @@ public class BlockLogic : MonoBehaviour {
         if (collision.gameObject.CompareTag("Player"))
         {
             LM.getBM().bolasAMeter++;
+            LM.ballsink.sumaCont();
            // LM.getBM().numeroTiles--;
             Destroy(gameObject);
         }

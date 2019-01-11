@@ -9,11 +9,13 @@ public class MenuManager : MonoBehaviour
     public Text stars;
     public Text PUbomba;
     public Text PUhierro;
+    public Slider volume;
     // Start is called before the first frame update
     void Start()
     {
         GameManager.getGM().setRubiesListener(this.gameObject);
         updateTexts();
+        volume.value = GameManager.getGM().getVolumen();
     }
 
     // Update is called once per frame
@@ -49,5 +51,9 @@ public class MenuManager : MonoBehaviour
         if(GameManager.getGM().addRubies(-100))
         GameManager.getGM().addPowerUp("Bomba", 1);
 
+    }
+    public void setVolume()
+    {
+        GameManager.getGM().setVolumen(volume.value);
     }
 }

@@ -42,4 +42,8 @@ public class BallSink : MonoBehaviour {
         LM.boardManager.Ball(ball.gameObject);
         Destroy(ball.gameObject);
     }
+    public void sumaCont()
+    {
+        contador++;
+    }
 }

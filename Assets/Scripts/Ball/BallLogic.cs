@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BallLogic : MonoBehaviour {
     Rigidbody2D rb; 
+    AudioSource sound;
 	// Use this for initialization
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
-
+        sound = GetComponent<AudioSource>();
+        sound.volume = GameManager.getGM().getVolumen();
     }
 	
 	// Update is called once per frame
@@ -52,14 +54,18 @@ public class BallLogic : MonoBehaviour {
         }
         if (callback != null) { callback(this); }
     }
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Cubos")
+        sound.Play();
+            }
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
     //    if (!GameManager.GM.Ball(transform.position.x))
     //    {
     //        Destroy(this.gameObject);
     //    }
-     
+
 
     //}
 }
