@@ -27,7 +27,7 @@ public class AdManager : MonoBehaviour
         {
             case ShowResult.Finished:
                 Debug.Log("The ad was successfully shown.");
-                gameManager.addRubies(10);
+                gameManager.addRubies(50);
 
                 //
                 // YOUR CODE TO REWARD THE GAMER
@@ -35,7 +35,7 @@ public class AdManager : MonoBehaviour
                 break;
 
             case ShowResult.Skipped:
-                gameManager.addRubies(1);
+               // gameManager.addRubies(1);
                 Debug.Log("The ad was skipped before reaching the end.");
                 break;
             case ShowResult.Failed:

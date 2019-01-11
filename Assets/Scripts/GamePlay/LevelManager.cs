@@ -19,7 +19,9 @@ public class LevelManager : MonoBehaviour {
     int estrellasConseguidas = 0;
     int puntos = 0;
     int puntosASumar = 10;
-   public  bool canBoostGoDown = true;
+    public Text PUbomba;
+    public Text PUhierro;
+    public  bool canBoostGoDown = true;
 
     float position; // posicion de spawn de bolas y deadzone
 
@@ -33,6 +35,7 @@ public class LevelManager : MonoBehaviour {
         readMap.Init(this);
         deadZone.FirstFakeBall();
         updateRubies();
+        updatePowerUpsText();
     }
 
     public void NewShot()
@@ -111,5 +114,11 @@ public class LevelManager : MonoBehaviour {
     public void updateRubies()
     {
         textoRubies.text = gameManager.GetRubies().ToString ();
+    }
+    public void updatePowerUpsText()
+    {
+        PUhierro.text = "x" + GameManager.getGM().getPowerUp("Hierro").ToString();
+        PUbomba.text = "x" + GameManager.getGM().getPowerUp("Bomba").ToString();
+
     }
 }

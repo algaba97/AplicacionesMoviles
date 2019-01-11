@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class PUHierro : MonoBehaviour
@@ -28,6 +29,7 @@ public class PUHierro : MonoBehaviour
         }
         if (!activo && GameManager.getGM().addPowerUp("Hierro",-1))
         {
+
             for (int i = 0; i < powerUP.Length; i++)
             {
                 GameObject b = Instantiate(bloqueH.gameObject);

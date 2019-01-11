@@ -7,6 +7,8 @@ public class MenuManager : MonoBehaviour
 {
     public Text rubies;
     public Text stars;
+    public Text PUbomba;
+    public Text PUhierro;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,20 +26,27 @@ public class MenuManager : MonoBehaviour
     {
         stars.text = GameManager.getGM().getStars().ToString();
         updateRubies();
+        updatePowerUpsText();
     }
     void updateRubies()
     {
         rubies.text = GameManager.getGM().GetRubies().ToString();
 
     }
+    public void updatePowerUpsText()
+    {
+        PUhierro.text = "x" + GameManager.getGM().getPowerUp("Hierro").ToString();
+        PUbomba.text = "x" + GameManager.getGM().getPowerUp("Bomba").ToString();
+
+    }
     public void buyPUHierro()
     {
-        if(GameManager.getGM().addRubies(-30))
+        if(GameManager.getGM().addRubies(-100))
         GameManager.getGM().addPowerUp("Hierro", 1);
     }
     public void buyPUBomba()
     {
-        if(GameManager.getGM().addRubies(-30))
+        if(GameManager.getGM().addRubies(-100))
         GameManager.getGM().addPowerUp("Bomba", 1);
 
     }

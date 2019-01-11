@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 
     
     float tsize = 0.0f;
-    GameObject rubiesListener;
+    GameObject msgListener;
     public void SetTSize(float aux)
     {
         tsize = aux;
@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour {
     {
         bool b;
         b = DM.sumaRubies( number);
-        rubiesListener.SendMessage("updateRubies");
+        msgListener.SendMessage("updateRubies");
         return b;
     }
     public bool addPowerUp(string name, int number)
@@ -98,6 +98,7 @@ public class GameManager : MonoBehaviour {
             b = DM.sumaPUbomba(number);
         }
         else Debug.Log("NO SE ENCUENTRA POWER UP " + name);
+        msgListener.SendMessage("updatePowerUpsText");
         return b;
     }
     public int GetRubies()
@@ -129,6 +130,6 @@ public class GameManager : MonoBehaviour {
     }
     public void setRubiesListener(GameObject l)
     {
-        rubiesListener = l;
+        msgListener = l;
     }
 }

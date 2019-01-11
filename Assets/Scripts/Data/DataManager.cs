@@ -63,8 +63,8 @@ public class DataManager : MonoBehaviour
             datos.rubies = 50;
             datos.puBomba = 0;
             datos.puHierro = 0;
-            datos.estrellas = new List<int>(3000);
-            datos.estrellas.Add(1);
+            datos.estrellas = new List<int>(500);
+            datos.estrellas.Add(0);
             datos.niveles = datos.estrellas.Count;
             SaveData();
 
@@ -92,7 +92,9 @@ public class DataManager : MonoBehaviour
         if (datos.rubies + value >= 0)
         {
         datos.rubies += value;
-        return true;
+            SaveData();
+
+            return true;
         }
         else return false;
     }
@@ -101,6 +103,8 @@ public class DataManager : MonoBehaviour
         if (datos.puBomba + value >= 0)
         {
             datos.puBomba += value;
+            SaveData();
+
             return true;
         }
         return false;
@@ -110,6 +114,7 @@ public class DataManager : MonoBehaviour
         if (datos.puHierro + value >= 0)
         {
             datos.puHierro += value;
+            SaveData();
             return true;
         }
         else return false;
