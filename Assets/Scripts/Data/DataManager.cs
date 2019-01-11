@@ -9,7 +9,8 @@ using System;
 public class DataJuego
 {
     public int rubies;
-    public int extratiros;
+    public int puBomba;
+    public int puHierro;
     public List< int> estrellas;
     public int niveles;
 }
@@ -20,7 +21,7 @@ public class DataManager : MonoBehaviour
     DataJuego datos;
     GameManager Gm;
 
-    void Start()
+    void Awake()
     {
         if (DM == null)
         {
@@ -41,7 +42,7 @@ public class DataManager : MonoBehaviour
 
     public void ReadData()
     {
-        //PlayerPrefs.DeleteKey("datos");
+       // PlayerPrefs.DeleteKey("DATA");
 
         if(PlayerPrefs.HasKey("DATA"))
         {
@@ -60,7 +61,8 @@ public class DataManager : MonoBehaviour
         {
             datos = new DataJuego();
             datos.rubies = 50;
-            datos.extratiros = 0;
+            datos.puBomba = 0;
+            datos.puHierro = 0;
             datos.estrellas = new List<int>(3000);
             datos.estrellas.Add(1);
             datos.niveles = datos.estrellas.Count;
@@ -85,13 +87,32 @@ public class DataManager : MonoBehaviour
 
     }
 
-    public void setRubies(int value)
+    public bool sumaRubies(int value)
     {
-        datos.rubies = value;
+        if (datos.rubies + value >= 0)
+        {
+        datos.rubies += value;
+        return true;
+        }
+        else return false;
     }
-    public void setExtraTiros(int value)
+    public bool sumaPUbomba(int value)
     {
-        datos.extratiros = value;
+        if (datos.puBomba + value >= 0)
+        {
+            datos.puBomba += value;
+            return true;
+        }
+        return false;
+    }
+    public bool sumaPUhierro(int value)
+    {
+        if (datos.puHierro + value >= 0)
+        {
+            datos.puHierro += value;
+            return true;
+        }
+        else return false;
     }
 
     public void addLevelData(int level, int stars)

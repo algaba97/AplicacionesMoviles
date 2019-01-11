@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour {
     public ReadMap readMap;
     public Slider puntos_bar;
     public Image[] estrellas;
+    public Text textoRubies;
     int estrellasConseguidas = 0;
     int puntos = 0;
     int puntosASumar = 10;
@@ -24,12 +25,14 @@ public class LevelManager : MonoBehaviour {
 
     private void Start() {
         gameManager = GameManager.getGM();
+        gameManager.setRubiesListener(this.gameObject);
         deadZone.Init(this,ballsink);
         spawner.Init(this);
         ballsink.Init(this);
         boardManager.Init(gameManager.getTilesize(),readMap,this);
         readMap.Init(this);
         deadZone.FirstFakeBall();
+        updateRubies();
     }
 
     public void NewShot()
@@ -64,12 +67,13 @@ public class LevelManager : MonoBehaviour {
     {
         puntos = 0;
         puntos_bar.value = puntos;
-        GameManager.getGM().setLevelRate(estrellasConseguidas);
+        gameManager.setLevelRate(estrellasConseguidas);
         estrellasConseguidas = 0;
         foreach (Image st in estrellas)
         {
             st.enabled = false;
         }
+       
     }
 
     public void llega(BallLogic bl)
@@ -103,5 +107,9 @@ public class LevelManager : MonoBehaviour {
     public BoardManager getBM()
     {
         return boardManager;
+    }
+    public void updateRubies()
+    {
+        textoRubies.text = gameManager.GetRubies().ToString ();
     }
 }

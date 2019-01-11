@@ -34,13 +34,14 @@ public class PopulateGrid : MonoBehaviour
         grid.cellSize = new Vector2(size.x / 6.5f, size.y / 7.4f   );
         grid.spacing = new Vector2(size.x / 18, size.y / 70);
         GameObject aux;
+        GM.getStars();
         for (int i = 1; i <= numNiveles; i++)
         {
             aux = (GameObject)Instantiate(boton, transform);
             aux.GetComponent<LevelButtons>().SetId(i);
             
             aux.GetComponentInChildren<RectTransform>().sizeDelta = new Vector2(size.x / 12, size.x / 12);
-            if(i <= GM.getLevel())
+            if(i <= GM.maxLevel())
             {
 
                 switch (GM.getLeveldatos(i-1))

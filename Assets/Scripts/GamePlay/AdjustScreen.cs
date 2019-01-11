@@ -12,26 +12,29 @@ public class AdjustScreen : MonoBehaviour {
     public RectTransform CanvasA; 
     public RectTransform CanvasB; 
     public RectTransform CanvasC;
-    public RectTransform PanelTop; 
-    public RectTransform PanelBottom;
+
+    public RectTransform [] Paneles; 
 
     public static AdjustScreen instance;
 
 
-    void Start () {
+    void Start()
+    {
         instance = this;
         float auxTam = Mathf.Min((float)Screen.width / 11, (float)Screen.height / 18);
         float margenY_ = (Screen.height - auxTam * 14) / 2;
         CanvasA.sizeDelta = new Vector2(Screen.width, margenY_);
         CanvasB.sizeDelta = new Vector2(Screen.width, margenY_);
         if (menu)
-        CanvasC.sizeDelta = new Vector2(Screen.width - ((Screen.width - auxTam * 11)), Screen.height - margenY_ * 2);
+            CanvasC.sizeDelta = new Vector2(Screen.width - ((Screen.width - auxTam * 11)), Screen.height - margenY_ * 2);
         else
-            CanvasC.sizeDelta = new Vector2(Screen.width , Screen.height - margenY_ * 2);
-        Vector2 rd3 = PanelTop.sizeDelta;
-        float tamqq = Mathf.Min((auxTam * 11) / rd3.x, margenY_ / rd3.y);
-        PanelTop.localScale = new Vector2(tamqq, tamqq);
-        PanelBottom.localScale = new Vector2(tamqq, tamqq);
+            CanvasC.sizeDelta = new Vector2(Screen.width, Screen.height - margenY_ * 2);
+        foreach (RectTransform panel in Paneles)
+        {
+            Vector2 rd3 = panel.sizeDelta;
+            float tamqq = Mathf.Min((auxTam * 11) / rd3.x, margenY_ / rd3.y);
+            panel.localScale = new Vector2(tamqq, tamqq);
+        }
     }
 
     public Vector2 getMiddleCanvasSize()

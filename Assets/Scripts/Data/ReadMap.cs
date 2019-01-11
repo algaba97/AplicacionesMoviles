@@ -36,7 +36,6 @@ public class ReadMap : MonoBehaviour {
     {
         LM = aux;
         gamemanager = GameManager.getGM();
-        Debug.Log("Empezamos a leer");
         ReadFile(GameManager.getGM().getLevel());
         instantiateMap();
         
@@ -53,14 +52,13 @@ public class ReadMap : MonoBehaviour {
     void instantiateMap(){
         width = Camera.main.orthographicSize * (float)Screen.width / (float)Screen.height; 
         height = Camera.main.orthographicSize ;
-        bool v = true;
+
 
        tilesize = (float)2 * width / (float)tam;
 
 
         if (tilesize * 18.0f > (height * 2.0f))
         {
-            Debug.Log("entra");
             tilesize = height * 2 / 18.0f;
         }
     
@@ -140,6 +138,7 @@ public class ReadMap : MonoBehaviour {
                     {
                         aux.gameObject.SetActive(false);
                     }
+                    if(Mapa[i,j] < 7)
                     LM.getBM().addTile(aux); 
 
                 }
@@ -155,7 +154,6 @@ public class ReadMap : MonoBehaviour {
         TextAsset text = (TextAsset) Resources.Load("Mapas/mapdata"+ number, typeof(TextAsset));
         //  string path = "Assets/Mapas/mapdata" + number +".txt";
         // string path = "Assets/Mapas/test.txt";
-        string p = text.text.Replace('\r', ' ');
         string[] path = text.text.Split('\n');
         string mapa = "";
 

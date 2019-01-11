@@ -20,11 +20,14 @@ public class BoardManager : MonoBehaviour
     public int bolasAMeter = 0;
     int contador = 0;
     bool fBola = true;
-    float iniX = 0.0f;
+
 
     bool EnableShoot;// Variable que controla si puedes disparar o no
 
     public Image NextLevelMenu;
+    public RectTransform panelJuego;
+    public RectTransform panelPU;
+
     void Start()
     {
         EnableShoot = true;
@@ -115,7 +118,7 @@ public class BoardManager : MonoBehaviour
         {
 
             fBola = false;
-            iniX = aux.transform.position.x;
+
             Primera = aux;
             return true;
         }
@@ -141,7 +144,7 @@ public class BoardManager : MonoBehaviour
         bolasAMeter = 0;
         tilesize = ts;
         //Primero calculamos la posición en la cual si toca el tile sería game over
-        float posy = LM.GetPosition(); // la posicion del margeny
+
         foreach (Tile tile in Board)
         {
             if (tile != null && tile.CanFall())
@@ -158,6 +161,8 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+        TogglePanels();
+        GetComponent<PUHierro>().removePowerUp();
     }
     public GameObject GetPrimera()
     {
@@ -218,8 +223,11 @@ public class BoardManager : MonoBehaviour
     }
     public bool roundIsEnd()
     {
-        Time.timeScale = 1;
         bool aux = EnableShoot;
+        if (aux) {
+            Time.timeScale = 1;
+            TogglePanels();
+        }
         EnableShoot = false;
         return aux;
     }
@@ -229,6 +237,7 @@ public class BoardManager : MonoBehaviour
     }
     public void duplicateVel()
     {
+        if (Time.timeScale == 1.0f)
         Time.timeScale *= 2.0f;
       
     }
@@ -241,6 +250,11 @@ public class BoardManager : MonoBehaviour
             pel.MoveTo(LM.ballsink.getPosition(),10, true,LM.ballsink.llega);
 
            }
+    }
+    void TogglePanels()
+    {
+        panelPU.gameObject.SetActive( !panelPU.gameObject.activeSelf);
+        panelJuego.gameObject.SetActive( !panelJuego.gameObject.activeSelf);
     }
 
 }

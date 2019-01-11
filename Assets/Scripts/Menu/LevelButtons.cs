@@ -25,7 +25,7 @@ public class LevelButtons : MonoBehaviour {
     }
     public void SelectLevel()
     {
-        if (GameManager.getGM().getLevel() >= _id)
+        if (GameManager.getGM().maxLevel() >= _id)
         {
             GameManager.getGM().setLevel(_id);
             SceneManager.LoadScene(1);

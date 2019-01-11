@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour {
 
     LevelManager LM;
     // Use this for initialization
-    private float ini = 0;
+
     private Vector2 forceVector;
     [Range(1.0f, 500.0f)]
     [Tooltip("ball Speed. Value between 1 and 10.")]
@@ -22,10 +22,7 @@ public class Spawner : MonoBehaviour {
        
 
     }
-    public void setIni(float aux) // Set the spawn point
-    {
-        ini = aux;
-    }
+  
     
    
     public void Init(LevelManager aux)
